@@ -3,8 +3,7 @@ package com.quora.controller;
 import com.quora.apimodels.request.UserDetailsRequestDTO;
 import com.quora.apimodels.response.UserDetailsResponseDTO;
 import com.quora.mapper.UserDetailsMapper;
-import com.quora.repository.UserDetailsRepository;
-import com.quora.service.business.UserService;
+import com.quora.service.business.UserManagementService;
 import com.quora.service.models.request.UserDetailsInputDTO;
 import com.quora.service.models.response.UserDetailsOutputDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +13,12 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/v1")
-public class UserController {
+public class UserManagementController {
 
-    private final UserService userService;
+    private final UserManagementService userService;
     private UserDetailsMapper userDetailsMapper = UserDetailsMapper.INSTANCE;
     @Autowired
-    public UserController(UserService userService){
+    public UserManagementController(UserManagementService userService){
         this.userService = userService;
     }
     @PostMapping("/users")

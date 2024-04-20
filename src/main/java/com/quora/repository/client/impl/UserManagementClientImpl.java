@@ -2,20 +2,20 @@ package com.quora.repository.client.impl;
 
 import com.quora.entity.UserEntity;
 import com.quora.mapper.UserDetailsMapper;
-import com.quora.repository.client.UserDetailsClient;
-import com.quora.repository.UserDetailsRepository;
+import com.quora.repository.client.UserManagementClient;
+import com.quora.repository.UserManagementRepository;
 import com.quora.service.models.request.UserDetailsInputDTO;
 import com.quora.service.models.response.UserDetailsOutputDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UserDetailsClientImpl implements UserDetailsClient {
-    private final UserDetailsRepository userDetailsRepository;
+public class UserManagementClientImpl implements UserManagementClient {
+    private final UserManagementRepository userDetailsRepository;
     private static final UserDetailsMapper userDetailsMapper = UserDetailsMapper.INSTANCE;
 
     @Autowired
-    public UserDetailsClientImpl(UserDetailsRepository userDetailsRepository){
+    public UserManagementClientImpl(UserManagementRepository userDetailsRepository){
         this.userDetailsRepository = userDetailsRepository;
     }
     @Override

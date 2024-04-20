@@ -1,17 +1,17 @@
 package com.quora.service.business;
 
-import com.quora.repository.client.impl.UserDetailsClientImpl;
+import com.quora.repository.client.impl.UserManagementClientImpl;
 import com.quora.service.models.request.UserDetailsInputDTO;
 import com.quora.service.models.response.UserDetailsOutputDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService {
-    private final UserDetailsClientImpl userDetailsClientImpl;
+public class UserManagementService {
+    private final UserManagementClientImpl userDetailsClientImpl;
 
     @Autowired
-    public UserService(UserDetailsClientImpl userDetailsClientImpl){
+    public UserManagementService(UserManagementClientImpl userDetailsClientImpl){
         this.userDetailsClientImpl = userDetailsClientImpl;
     }
 

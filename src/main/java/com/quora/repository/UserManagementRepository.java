@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public interface UserDetailsRepository extends JpaRepository<UserEntity, String> {
+public interface UserManagementRepository extends JpaRepository<UserEntity, String> {
     UserEntity findByUserId(String userId);
     @Modifying
     @Transactional
