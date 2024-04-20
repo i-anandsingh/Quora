@@ -9,6 +9,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 @Mapper(unmappedTargetPolicy = ReportingPolicy.WARN, unmappedSourcePolicy = ReportingPolicy.WARN)
 public interface QuestionManagementMapper {
     QuestionManagementMapper INSTANCE = Mappers.getMapper(QuestionManagementMapper.class);
@@ -16,4 +18,6 @@ public interface QuestionManagementMapper {
     QuestionResponseDTO mapOutputToResponse(QuestionOutputDTO outputDTO);
     QuestionInputDTO mapRequestToInput(QuestionRequestDTO requestDTO);
     QuestionOutputDTO mapEntityToOutput(QuestionEntity entity);
+    List<QuestionOutputDTO> mapEntityToOutputList(List<QuestionEntity> entityList);
+    List<QuestionResponseDTO> mapOutputToResponseList(List<QuestionOutputDTO> outputDTOList);
 }

@@ -9,6 +9,8 @@ import com.quora.service.models.response.QuestionOutputDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class QuestionManagementClientImpl implements QuestionManagementClient {
     private final QuestionManagementRepository questionManagementRepository;
@@ -24,5 +26,13 @@ public class QuestionManagementClientImpl implements QuestionManagementClient {
         QuestionEntity entity = questionManagementMapper.mapInputToEntity(inputDTO);
         questionManagementRepository.save(entity);
         return questionManagementMapper.mapEntityToOutput(entity);
+    }
+
+    @Override
+    public List<QuestionEntity> searchQuestion(QuestionInputDTO inputDTO) {
+        QuestionEntity entity = new QuestionEntity();
+        entity.setTitle(inputDTO.getText());
+        entity.setTopicTags(inputDTO.getTopicTags());
+        return questionManagementRepository.findAll();
     }
 }

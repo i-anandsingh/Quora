@@ -11,7 +11,7 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-04-20T09:19:20+0530",
+    date = "2024-04-20T17:05:57+0530",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.7.jar, environment: Java 21.0.1 (Oracle Corporation)"
 )
 public class QuestionManagementMapperImpl implements QuestionManagementMapper {
@@ -90,5 +90,33 @@ public class QuestionManagementMapperImpl implements QuestionManagementMapper {
         }
 
         return questionOutputDTO.build();
+    }
+
+    @Override
+    public List<QuestionOutputDTO> mapEntityToOutputList(List<QuestionEntity> entityList) {
+        if ( entityList == null ) {
+            return null;
+        }
+
+        List<QuestionOutputDTO> list = new ArrayList<QuestionOutputDTO>( entityList.size() );
+        for ( QuestionEntity questionEntity : entityList ) {
+            list.add( mapEntityToOutput( questionEntity ) );
+        }
+
+        return list;
+    }
+
+    @Override
+    public List<QuestionResponseDTO> mapOutputToResponseList(List<QuestionOutputDTO> outputDTOList) {
+        if ( outputDTOList == null ) {
+            return null;
+        }
+
+        List<QuestionResponseDTO> list = new ArrayList<QuestionResponseDTO>( outputDTOList.size() );
+        for ( QuestionOutputDTO questionOutputDTO : outputDTOList ) {
+            list.add( mapOutputToResponse( questionOutputDTO ) );
+        }
+
+        return list;
     }
 }

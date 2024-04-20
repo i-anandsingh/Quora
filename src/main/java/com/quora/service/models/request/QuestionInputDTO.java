@@ -16,5 +16,7 @@ public class QuestionInputDTO {
     private UUID userId;
     private String title;
     private String body;
+    private String text;
     private List<String> topicTags;
+    private String tag;
 }

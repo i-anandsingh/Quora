@@ -9,10 +9,9 @@ import com.quora.service.models.response.QuestionOutputDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/v1")
@@ -32,5 +31,18 @@ public class QuestionsManagementController {
         QuestionOutputDTO outputDTO = questionManagementService.postQuestion(inputDTO);
         QuestionResponseDTO responseDTO = questionManagementMapper.mapOutputToResponse(outputDTO);
         return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/questions/search")
+    private ResponseEntity<List<QuestionResponseDTO>> searchQuestion(
+            @RequestParam(name = "text", required = false) String text,
+            @RequestParam(name = "tag", required = false) String tag
+    ){
+        QuestionInputDTO inputDTO = new QuestionInputDTO();
+        inputDTO.setText(text);
+        inputDTO.setTag(tag);
+        List<QuestionOutputDTO> outputDTO = questionManagementService.searchQuestion(inputDTO);
+        List<QuestionResponseDTO> responseDTO = questionManagementMapper.mapOutputToResponseList(outputDTO);
+        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }
 }
