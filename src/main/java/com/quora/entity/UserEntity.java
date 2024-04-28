@@ -1,17 +1,18 @@
 package com.quora.entity;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Data
-@Entity(name = "user_details_table")
+@Entity(name = "user_table")
 public class UserEntity extends BaseEntity{
+    @Id
+    @Column(nullable = false)
+    private UUID id;
 
     @Column(nullable = false, name = "username")
     private String username;

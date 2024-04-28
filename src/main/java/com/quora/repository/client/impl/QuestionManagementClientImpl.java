@@ -1,8 +1,10 @@
 package com.quora.repository.client.impl;
 
 import com.quora.entity.QuestionEntity;
+import com.quora.entity.UserEntity;
 import com.quora.mapper.QuestionManagementMapper;
 import com.quora.repository.QuestionManagementRepository;
+import com.quora.repository.UserManagementRepository;
 import com.quora.repository.client.QuestionManagementClient;
 import com.quora.service.models.request.QuestionInputDTO;
 import com.quora.service.models.response.QuestionOutputDTO;
@@ -10,20 +12,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Component
 public class QuestionManagementClientImpl implements QuestionManagementClient {
+    private UUID uuid;
     private final QuestionManagementRepository questionManagementRepository;
+    private final UserManagementRepository userManagementRepository;
     private QuestionManagementMapper questionManagementMapper = QuestionManagementMapper.INSTANCE;
 
     @Autowired
-    public QuestionManagementClientImpl (QuestionManagementRepository questionManagementRepository){
+    public QuestionManagementClientImpl (
+            QuestionManagementRepository questionManagementRepository,
+            UserManagementRepository userManagementRepository
+    ){
+        this.userManagementRepository = userManagementRepository;
         this.questionManagementRepository = questionManagementRepository;
     }
 
     @Override
     public QuestionOutputDTO postQuestion(QuestionInputDTO inputDTO) {
+        Optional<UserEntity> userOptional = Optional.ofNullable(userManagementRepository.findById(inputDTO.getId()));
+        if (userOptional.isEmpty()) {
+            // Handle case where user is not found
+            // You can throw an exception or return null, depending on your requirements
+            return null;
+        }
         QuestionEntity entity = questionManagementMapper.mapInputToEntity(inputDTO);
+        entity.setId(UUID.randomUUID());
+        UserEntity user = userOptional.get();
+        entity.setUser(user);
         questionManagementRepository.save(entity);
         return questionManagementMapper.mapEntityToOutput(entity);
     }

@@ -36,11 +36,11 @@ public class QuestionsManagementController {
     @GetMapping("/questions/search")
     private ResponseEntity<List<QuestionResponseDTO>> searchQuestion(
             @RequestParam(name = "text", required = false) String text,
-            @RequestParam(name = "tag", required = false) String tag
+            @RequestParam(name = "tag", required = false) List<String> tags
     ){
         QuestionInputDTO inputDTO = new QuestionInputDTO();
         inputDTO.setText(text);
-        inputDTO.setTag(tag);
+        inputDTO.setTopicTags(tags);
         List<QuestionOutputDTO> outputDTO = questionManagementService.searchQuestion(inputDTO);
         List<QuestionResponseDTO> responseDTO = questionManagementMapper.mapOutputToResponseList(outputDTO);
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);

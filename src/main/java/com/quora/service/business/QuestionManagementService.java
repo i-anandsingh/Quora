@@ -38,8 +38,8 @@ public class QuestionManagementService {
         if(inputDTO.getText() != null) {
             List<QuestionOutputDTO> outputDTOText = filterBasedOnText(entityList, inputDTO.getText());
             outputDTOList.addAll(outputDTOText);
-        } else if(inputDTO.getTag() != null) {
-            List<QuestionOutputDTO> outputDTOTag = filterBasedOnTags(entityList, inputDTO.getTag());
+        } else if(inputDTO.getTopicTags() != null) {
+            List<QuestionOutputDTO> outputDTOTag = filterBasedOnTags(entityList, inputDTO.getTopicTags());
             outputDTOList.addAll(outputDTOTag);
         } else {
             return questionManagementMapper.mapEntityToOutputList(entityList);
@@ -56,14 +56,16 @@ public class QuestionManagementService {
         return outputDTOList;
     }
 
-    private List<QuestionOutputDTO> filterBasedOnTags(List<QuestionEntity> entityList, String topicTag) {
+    private List<QuestionOutputDTO> filterBasedOnTags(List<QuestionEntity> entityList, List<String> topicTag) {
         List<QuestionOutputDTO> outputDTOList = new ArrayList<>();
-        for (QuestionEntity entity : entityList) {
-            for(String innerTags : entity.getTopicTags()){
-                if(topicTag.equals(innerTags)){
-                    QuestionOutputDTO outputDTO;
-                    outputDTO = questionManagementMapper.mapEntityToOutput(entity);
-                    outputDTOList.add(outputDTO);
+        for(String bodyTag : topicTag) {
+            for (QuestionEntity entity : entityList) {
+                for (String innerTags : entity.getTopicTags()) {
+                    if (bodyTag.equals(innerTags)) {
+                        QuestionOutputDTO outputDTO;
+                        outputDTO = questionManagementMapper.mapEntityToOutput(entity);
+                        outputDTOList.add(outputDTO);
+                    }
                 }
             }
         }

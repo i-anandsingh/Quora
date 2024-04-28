@@ -13,7 +13,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class QuestionRequestDTO {
-    private UUID userId;
+    private UUID user_Id;
     private String title;
     private String body;
     private List<String> topicTags;
