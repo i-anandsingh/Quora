@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Component
@@ -33,15 +32,13 @@ public class QuestionManagementClientImpl implements QuestionManagementClient {
 
     @Override
     public QuestionOutputDTO postQuestion(QuestionInputDTO inputDTO) {
-        Optional<UserEntity> userOptional = Optional.ofNullable(userManagementRepository.findById(inputDTO.getId()));
-        if (userOptional.isEmpty()) {
-            // Handle case where user is not found
-            // You can throw an exception or return null, depending on your requirements
+        UserEntity user = userManagementRepository.findById(inputDTO.getUser_Id());
+        if (user == null) {
+            // TODO -> Return some Exception
             return null;
         }
         QuestionEntity entity = questionManagementMapper.mapInputToEntity(inputDTO);
-        entity.setId(UUID.randomUUID());
-        UserEntity user = userOptional.get();
+        entity.setQuestion_Id(UUID.randomUUID());
         entity.setUser(user);
         questionManagementRepository.save(entity);
         return questionManagementMapper.mapEntityToOutput(entity);

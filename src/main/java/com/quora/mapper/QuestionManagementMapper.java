@@ -6,7 +6,6 @@ import com.quora.entity.QuestionEntity;
 import com.quora.service.models.request.QuestionInputDTO;
 import com.quora.service.models.response.QuestionOutputDTO;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
@@ -17,7 +16,6 @@ public interface QuestionManagementMapper {
     QuestionManagementMapper INSTANCE = Mappers.getMapper(QuestionManagementMapper.class);
     QuestionEntity mapInputToEntity(QuestionInputDTO inputDTO);
     QuestionResponseDTO mapOutputToResponse(QuestionOutputDTO outputDTO);
-    @Mapping(source = "user_Id", target = "id")
     QuestionInputDTO mapRequestToInput(QuestionRequestDTO requestDTO);
     QuestionOutputDTO mapEntityToOutput(QuestionEntity entity);
     List<QuestionOutputDTO> mapEntityToOutputList(List<QuestionEntity> entityList);

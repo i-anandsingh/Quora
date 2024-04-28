@@ -13,7 +13,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class QuestionInputDTO {
-    private UUID id;
+    private UUID user_Id;
     private String title;
     private String body;
     private String text;

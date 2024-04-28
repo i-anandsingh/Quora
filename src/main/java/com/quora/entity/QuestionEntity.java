@@ -11,7 +11,7 @@ import java.util.UUID;
 public class QuestionEntity extends BaseEntity{
     @Id
     @Column(nullable = false)
-    private UUID id;
+    private UUID question_Id;
 
     @Column(nullable = false, name = "title")
     private String title;
