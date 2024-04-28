@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/v1")
 public class UserManagementController {
@@ -30,7 +32,7 @@ public class UserManagementController {
     }
 
     @GetMapping("/users/{userId}")
-    public ResponseEntity<UserDetailsResponseDTO> fetchUser(@PathVariable String userId) {
+    public ResponseEntity<UserDetailsResponseDTO> fetchUser(@PathVariable UUID userId) {
         UserDetailsInputDTO inputDTO = new UserDetailsInputDTO();
         inputDTO.setUserId(userId);
         UserDetailsOutputDTO outputDTO = userService.fetchUserDetails(inputDTO);

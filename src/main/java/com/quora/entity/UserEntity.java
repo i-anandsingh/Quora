@@ -1,20 +1,17 @@
 package com.quora.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 
-import java.io.Serializable;
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity(name = "user_details_table")
-public class UserEntity implements Serializable {
-
-    @Id
-    @Column(nullable = false, name = "user_id")
-    private UUID user_id;
+public class UserEntity extends BaseEntity{
 
     @Column(nullable = false, name = "username")
     private String username;
@@ -24,4 +21,7 @@ public class UserEntity implements Serializable {
 
     @Column(name = "bio")
     private String bio;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    List<QuestionEntity> questions = new ArrayList<>();
 }

@@ -7,11 +7,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Repository
 public interface UserManagementRepository extends JpaRepository<UserEntity, String> {
-    UserEntity findByUserId(String userId);
+    UserEntity findById(UUID Id);
     @Modifying
     @Transactional
-    @Query(value = "UPDATE USER_DETAILS U SET U.BIO = :bio WHERE U.USERID = :userId", nativeQuery = true)
-    void updateUserDetailsById(String bio, String userId);
+    @Query(value = "UPDATE USER_DETAILS U SET U.BIO = :bio WHERE U.USERID = :Id", nativeQuery = true)
+    void updateUserDetailsById(String bio, UUID Id);
 }
