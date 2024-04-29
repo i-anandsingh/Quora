@@ -15,5 +15,5 @@ public interface UserDetailsMapper {
     UserDetailsInputDTO mapRequestToInput(UserDetailsRequestDTO requestDTO);
     UserDetailsResponseDTO mapOutputToResponse(UserDetailsOutputDTO outputDTO);
     UserEntity mapInputToEntity(UserDetailsInputDTO inputDTO);
-    UserDetailsOutputDTO mapEntitytoOutput(UserEntity entity);
+    UserDetailsOutputDTO mapEntityToOutput(UserEntity entity);
 }

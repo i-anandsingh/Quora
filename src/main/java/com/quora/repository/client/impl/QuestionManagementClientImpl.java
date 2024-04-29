@@ -51,4 +51,6 @@ public class QuestionManagementClientImpl implements QuestionManagementClient {
         entity.setTopicTags(inputDTO.getTopicTags());
         return questionManagementRepository.findAll();
     }
+
+    //implement a method to search all the questions by a user
 }

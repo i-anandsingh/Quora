@@ -26,19 +26,19 @@ public class UserManagementClientImpl implements UserManagementClient {
         UserEntity entity = userDetailsMapper.mapInputToEntity(inputDTO);
         entity.setId(uuid.randomUUID());
         userDetailsRepository.save(entity);
-        return userDetailsMapper.mapEntitytoOutput(entity);
+        return userDetailsMapper.mapEntityToOutput(entity);
     }
 
     @Override
     public UserDetailsOutputDTO fetchUserDetails(UserDetailsInputDTO inputDTO) {
         UserEntity entity = userDetailsRepository.findById(inputDTO.getUserId());
-        return userDetailsMapper.mapEntitytoOutput(entity);
+        return userDetailsMapper.mapEntityToOutput(entity);
     }
 
     @Override
     public UserDetailsOutputDTO updateUserDetails(UserDetailsInputDTO inputDTO) {
         userDetailsRepository.updateUserDetailsById(inputDTO.getBio(), inputDTO.getUserId());
         UserEntity entity = userDetailsRepository.findById(inputDTO.getUserId());
-        return userDetailsMapper.mapEntitytoOutput(entity);
+        return userDetailsMapper.mapEntityToOutput(entity);
     }
 }
