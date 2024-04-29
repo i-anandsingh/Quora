@@ -12,7 +12,7 @@ import java.util.UUID;
 public class UserEntity extends BaseEntity{
     @Id
     @Column(nullable = false)
-    private UUID id;
+    private UUID userId;
 
     @Column(nullable = false, name = "username")
     private String username;

@@ -12,6 +12,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AnswerInputDTO {
-    private UUID question_id;
+    private UUID userId;
+    private UUID questionId;
     private String answer;
 }

@@ -11,7 +11,7 @@ import java.util.UUID;
 public class QuestionEntity extends BaseEntity{
     @Id
     @Column(nullable = false)
-    private UUID question_Id;
+    private UUID questionId;
 
     @Column(nullable = false, name = "title")
     private String title;
@@ -23,6 +23,10 @@ public class QuestionEntity extends BaseEntity{
     private List<String> topicTags;
 
     @ManyToOne
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "userId", nullable = false)
     private UserEntity user;
+
+    // A question can have many answers
+    @OneToMany(mappedBy = "answerId", cascade = CascadeType.REMOVE)
+    private List<AnswerEntity> answerList;
 }

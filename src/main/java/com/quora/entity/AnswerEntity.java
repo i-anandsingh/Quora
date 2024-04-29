@@ -1,8 +1,6 @@
 package com.quora.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,14 +12,16 @@ import java.util.UUID;
 public class AnswerEntity extends BaseEntity{
     @Id
     @Column(nullable = false)
-    private UUID answer_id;
+    private UUID answerId;
 
-    @Column(nullable = false)
-    private UUID question_id;
+    @ManyToOne
+    @JoinColumn(name = "questionId", nullable = false)
+    private QuestionEntity question;
 
     @Column(nullable = false)
     private String answer;
 
-    @Column(nullable = false)
-    private UUID user_id;
+    @ManyToOne
+    @JoinColumn(name = "userId", nullable = false)
+    private UserEntity user;
 }

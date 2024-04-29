@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @Repository
 public interface UserManagementRepository extends JpaRepository<UserEntity, String> {
-    UserEntity findById(UUID Id);
+    UserEntity findByUserId(UUID userId);
     @Modifying
     @Transactional
     @Query(value = "UPDATE USER_DETAILS U SET U.BIO = :bio WHERE U.USERID = :Id", nativeQuery = true)

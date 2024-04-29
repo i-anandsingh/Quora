@@ -32,13 +32,13 @@ public class QuestionManagementClientImpl implements QuestionManagementClient {
 
     @Override
     public QuestionOutputDTO postQuestion(QuestionInputDTO inputDTO) {
-        UserEntity user = userManagementRepository.findById(inputDTO.getUser_Id());
+        UserEntity user = userManagementRepository.findByUserId(inputDTO.getUser_Id());
         if (user == null) {
             // TODO -> Return some Exception
             return null;
         }
         QuestionEntity entity = questionManagementMapper.mapInputToEntity(inputDTO);
-        entity.setQuestion_Id(UUID.randomUUID());
+        entity.setQuestionId(UUID.randomUUID());
         entity.setUser(user);
         questionManagementRepository.save(entity);
         return questionManagementMapper.mapEntityToOutput(entity);

@@ -12,6 +12,6 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AnswerRequestDTO {
-    private UUID question_id;
+    private UUID userId;
     private String answer;
 }

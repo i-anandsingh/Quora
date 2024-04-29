@@ -10,4 +10,6 @@ import java.util.UUID;
 @Repository
 public interface QuestionManagementRepository extends JpaRepository<QuestionEntity, UUID> {
     List<QuestionEntity> findAll();
+    QuestionEntity findByQuestionId(UUID questionId);
+
 }
