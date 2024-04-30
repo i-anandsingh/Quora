@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Data
-@Entity(name = "user_table")
+@Entity(name = "users_table")
 public class UserEntity extends BaseEntity{
     @Id
     @Column(nullable = false)
@@ -25,4 +25,7 @@ public class UserEntity extends BaseEntity{
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     List<QuestionEntity> questions = new ArrayList<>();
+//
+//    @OneToOne(cascade = CascadeType.REMOVE)
+//    private AnswerEntity answerEntity;
 }

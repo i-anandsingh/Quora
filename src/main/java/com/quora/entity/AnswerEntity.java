@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -21,7 +22,10 @@ public class AnswerEntity extends BaseEntity{
     @Column(nullable = false)
     private String answer;
 
-    @ManyToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "userId", nullable = false)
     private UserEntity user;
+
+    @OneToMany(mappedBy = "answer", cascade = CascadeType.REMOVE)
+    private List<CommentEntity> commentEntityList;
 }
