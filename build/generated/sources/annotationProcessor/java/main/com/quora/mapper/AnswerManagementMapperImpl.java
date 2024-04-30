@@ -9,7 +9,7 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-04-30T01:03:28+0530",
+    date = "2024-04-30T16:53:12+0530",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.7.jar, environment: Java 21.0.1 (Oracle Corporation)"
 )
 public class AnswerManagementMapperImpl implements AnswerManagementMapper {
@@ -22,7 +22,7 @@ public class AnswerManagementMapperImpl implements AnswerManagementMapper {
 
         AnswerInputDTO.AnswerInputDTOBuilder answerInputDTO = AnswerInputDTO.builder();
 
-        answerInputDTO.question_id( requestDTO.getQuestion_id() );
+        answerInputDTO.userId( requestDTO.getUserId() );
         answerInputDTO.answer( requestDTO.getAnswer() );
 
         return answerInputDTO.build();
@@ -42,16 +42,15 @@ public class AnswerManagementMapperImpl implements AnswerManagementMapper {
     }
 
     @Override
-    public AnswerOutputDTO mapOutputToEntity(AnswerEntity entity) {
+    public AnswerOutputDTO mapEntityToOutput(AnswerEntity entity) {
         if ( entity == null ) {
             return null;
         }
 
         AnswerOutputDTO.AnswerOutputDTOBuilder answerOutputDTO = AnswerOutputDTO.builder();
 
-        answerOutputDTO.answer_id( entity.getAnswer_id() );
-        answerOutputDTO.user_id( entity.getUser_id() );
-        answerOutputDTO.createdAt( entity.getCreatedAt() );
+        answerOutputDTO.answerId( entity.getAnswerId() );
+        answerOutputDTO.answer( entity.getAnswer() );
 
         return answerOutputDTO.build();
     }
@@ -64,11 +63,8 @@ public class AnswerManagementMapperImpl implements AnswerManagementMapper {
 
         AnswerResponseDTO.AnswerResponseDTOBuilder answerResponseDTO = AnswerResponseDTO.builder();
 
-        answerResponseDTO.answer_id( outputDTO.getAnswer_id() );
-        answerResponseDTO.question_id( outputDTO.getQuestion_id() );
-        answerResponseDTO.user_id( outputDTO.getUser_id() );
-        answerResponseDTO.text( outputDTO.getText() );
-        answerResponseDTO.createdAt( outputDTO.getCreatedAt() );
+        answerResponseDTO.answerId( outputDTO.getAnswerId() );
+        answerResponseDTO.answer( outputDTO.getAnswer() );
 
         return answerResponseDTO.build();
     }

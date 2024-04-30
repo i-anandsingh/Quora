@@ -4,12 +4,15 @@ import com.quora.entity.AnswerEntity;
 import com.quora.entity.QuestionEntity;
 import com.quora.entity.UserEntity;
 import com.quora.mapper.AnswerManagementMapper;
+import com.quora.mapper.ModifyAnswerMapper;
 import com.quora.repository.AnswerManagementRepository;
 import com.quora.repository.QuestionManagementRepository;
 import com.quora.repository.UserManagementRepository;
 import com.quora.repository.client.AnswerManagementClient;
 import com.quora.service.models.request.AnswerInputDTO;
+import com.quora.service.models.request.ModifyAnswerInputDTO;
 import com.quora.service.models.response.AnswerOutputDTO;
+import com.quora.service.models.response.ModifyAnswerOutputDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +23,7 @@ public class AnswerManagementClientImpl implements AnswerManagementClient {
     private AnswerManagementRepository answerManagementRepository;
     private UserManagementRepository userManagementRepository;
     private QuestionManagementRepository questionManagementRepository;
+    private ModifyAnswerMapper modifyAnswerMapper = ModifyAnswerMapper.INSTANCE;
     private AnswerManagementMapper answerManagementMapper = AnswerManagementMapper.INSTANCE;
 
     @Autowired
@@ -32,7 +36,6 @@ public class AnswerManagementClientImpl implements AnswerManagementClient {
         this.userManagementRepository = userManagementRepository;
         this.questionManagementRepository = questionManagementRepository;
     }
-    @Override
     public AnswerOutputDTO postAnswer(AnswerInputDTO inputDTO) {
         UserEntity user = userManagementRepository.findByUserId(inputDTO.getUserId());
         QuestionEntity question = questionManagementRepository.findByQuestionId(inputDTO.getQuestionId());
@@ -47,4 +50,16 @@ public class AnswerManagementClientImpl implements AnswerManagementClient {
         answerManagementRepository.save(entity);
         return answerManagementMapper.mapEntityToOutput(entity);
     }
+
+    public ModifyAnswerOutputDTO modifyAnswer(ModifyAnswerInputDTO inputDTO){
+        AnswerEntity entity = answerManagementRepository.findByAnswerId(inputDTO.getAnswerId());
+        if(entity == null){
+            // TODO -> return an exception
+            return null;
+        }
+        entity.setAnswer(inputDTO.getAnswer());
+        answerManagementRepository.save(entity);
+        return modifyAnswerMapper.mapEntityToOutput(entity);
+    }
+
 }

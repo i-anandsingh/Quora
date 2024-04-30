@@ -11,7 +11,7 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-04-20T17:05:57+0530",
+    date = "2024-04-30T16:53:12+0530",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.7.jar, environment: Java 21.0.1 (Oracle Corporation)"
 )
 public class QuestionManagementMapperImpl implements QuestionManagementMapper {
@@ -24,7 +24,6 @@ public class QuestionManagementMapperImpl implements QuestionManagementMapper {
 
         QuestionEntity questionEntity = new QuestionEntity();
 
-        questionEntity.setUserId( inputDTO.getUserId() );
         questionEntity.setTitle( inputDTO.getTitle() );
         questionEntity.setBody( inputDTO.getBody() );
         List<String> list = inputDTO.getTopicTags();
@@ -43,7 +42,7 @@ public class QuestionManagementMapperImpl implements QuestionManagementMapper {
 
         QuestionResponseDTO.QuestionResponseDTOBuilder questionResponseDTO = QuestionResponseDTO.builder();
 
-        questionResponseDTO.userId( outputDTO.getUserId() );
+        questionResponseDTO.questionId( outputDTO.getQuestionId() );
         questionResponseDTO.title( outputDTO.getTitle() );
         questionResponseDTO.body( outputDTO.getBody() );
         List<String> list = outputDTO.getTopicTags();
@@ -62,7 +61,7 @@ public class QuestionManagementMapperImpl implements QuestionManagementMapper {
 
         QuestionInputDTO.QuestionInputDTOBuilder questionInputDTO = QuestionInputDTO.builder();
 
-        questionInputDTO.userId( requestDTO.getUserId() );
+        questionInputDTO.user_Id( requestDTO.getUser_Id() );
         questionInputDTO.title( requestDTO.getTitle() );
         questionInputDTO.body( requestDTO.getBody() );
         List<String> list = requestDTO.getTopicTags();
@@ -81,7 +80,7 @@ public class QuestionManagementMapperImpl implements QuestionManagementMapper {
 
         QuestionOutputDTO.QuestionOutputDTOBuilder questionOutputDTO = QuestionOutputDTO.builder();
 
-        questionOutputDTO.userId( entity.getUserId() );
+        questionOutputDTO.questionId( entity.getQuestionId() );
         questionOutputDTO.title( entity.getTitle() );
         questionOutputDTO.body( entity.getBody() );
         List<String> list = entity.getTopicTags();
