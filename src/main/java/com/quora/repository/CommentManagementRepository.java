@@ -8,4 +8,5 @@ import java.util.UUID;
 
 @Repository
 public interface CommentManagementRepository extends JpaRepository<CommentEntity, UUID> {
+    CommentEntity findByCommentId(UUID commentId);
 }

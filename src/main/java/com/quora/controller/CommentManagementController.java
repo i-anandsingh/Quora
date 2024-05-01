@@ -1,10 +1,15 @@
 package com.quora.controller;
 
+import com.quora.apimodels.request.CommentOnCommentRequestDTO;
 import com.quora.apimodels.request.CommentRequestDTO;
+import com.quora.apimodels.response.CommentOnCommentResponseDTO;
 import com.quora.apimodels.response.CommentResponseDTO;
 import com.quora.mapper.CommentManagementMapper;
+import com.quora.mapper.CommentOnCommentMapper;
 import com.quora.service.business.CommentManagementService;
 import com.quora.service.models.request.CommentInputDTO;
+import com.quora.service.models.request.CommentOnCommentInputDTO;
+import com.quora.service.models.response.CommentOnCommentOutputDTO;
 import com.quora.service.models.response.CommentOutputDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +22,7 @@ import java.util.UUID;
 @RequestMapping("/v1")
 public class CommentManagementController {
     private final CommentManagementMapper commentManagementMapper = CommentManagementMapper.INSTANCE;
+    private final CommentOnCommentMapper commentOnCommentMapper = CommentOnCommentMapper.INSTANCE;
     private final CommentManagementService commentManagementService;
     @Autowired
     private CommentManagementController(CommentManagementService commentManagementService){
@@ -30,8 +36,20 @@ public class CommentManagementController {
     ) {
         CommentInputDTO inputDTO = commentManagementMapper.mapRequestToInput(requestDTO);
         inputDTO.setAnswerId(answerId);
-        CommentOutputDTO outputDTO = commentManagementService.commentOnAnswer(inputDTO);
+        CommentOutputDTO outputDTO = commentManagementService.doComment(inputDTO);
         CommentResponseDTO response = commentManagementMapper.mapOutputToResponse(outputDTO);
         return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
+    }
+
+    @PostMapping("/comments/{commentId}/comments")
+    public ResponseEntity<CommentOnCommentResponseDTO> commentOnComment(
+            @PathVariable UUID commentId,
+            @RequestBody CommentOnCommentRequestDTO requestDTO
+    ) {
+        CommentOnCommentInputDTO inputDTO = commentOnCommentMapper.mapRequestToInput(requestDTO);
+        inputDTO.setCommentId(commentId);
+        CommentOnCommentOutputDTO outputDTO= commentManagementService.doCommOnComment(inputDTO);
+        CommentOnCommentResponseDTO responseDTO = commentOnCommentMapper.mapOutputToResponse(outputDTO);
+        return new ResponseEntity<>(responseDTO, HttpStatus.ACCEPTED);
     }
 }

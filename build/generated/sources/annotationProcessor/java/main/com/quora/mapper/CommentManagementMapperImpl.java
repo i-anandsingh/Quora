@@ -9,7 +9,7 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-04-30T22:18:03+0530",
+    date = "2024-05-01T01:28:25+0530",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.7.jar, environment: Java 21.0.1 (Oracle Corporation)"
 )
 public class CommentManagementMapperImpl implements CommentManagementMapper {
@@ -63,6 +63,7 @@ public class CommentManagementMapperImpl implements CommentManagementMapper {
 
         CommentResponseDTO.CommentResponseDTOBuilder commentResponseDTO = CommentResponseDTO.builder();
 
+        commentResponseDTO.answerId( outputDTO.getAnswerId() );
         commentResponseDTO.commentId( outputDTO.getCommentId() );
         commentResponseDTO.comment( outputDTO.getComment() );
 

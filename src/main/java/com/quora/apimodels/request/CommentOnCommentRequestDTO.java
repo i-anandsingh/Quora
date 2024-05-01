@@ -1,4 +1,4 @@
-package com.quora.service.models.response;
+package com.quora.apimodels.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,8 +11,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CommentOutputDTO {
-    private UUID answerId;
-    private UUID commentId;
+public class CommentOnCommentRequestDTO {
+    private UUID userId;
     private String comment;
 }

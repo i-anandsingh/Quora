@@ -11,8 +11,7 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CommentOutputDTO {
-    private UUID answerId;
+public class CommentOnCommentOutputDTO {
     private UUID commentId;
     private String comment;
 }
