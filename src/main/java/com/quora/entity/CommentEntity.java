@@ -13,7 +13,6 @@ public class CommentEntity extends BaseEntity{
     private UUID commentId;
 
     @OneToOne
-    @JoinColumn(name = "userId", nullable = false)
     private UserEntity user;
 
     @Column(nullable = false)

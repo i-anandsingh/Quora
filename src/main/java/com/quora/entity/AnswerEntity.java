@@ -16,16 +16,14 @@ public class AnswerEntity extends BaseEntity{
     private UUID answerId;
 
     @ManyToOne
-    @JoinColumn(name = "questionId", nullable = false)
     private QuestionEntity question;
 
     @Column(nullable = false)
     private String answer;
 
-    @OneToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "userId", nullable = false)
-    private UserEntity user;
-
     @OneToMany(mappedBy = "answer", cascade = CascadeType.REMOVE)
     private List<CommentEntity> commentEntityList;
+
+    @OneToOne
+    private UserEntity user;
 }

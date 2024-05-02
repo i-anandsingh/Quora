@@ -25,7 +25,4 @@ public class UserEntity extends BaseEntity{
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     List<QuestionEntity> questions = new ArrayList<>();
-//
-//    @OneToOne(cascade = CascadeType.REMOVE)
-//    private AnswerEntity answerEntity;
 }
