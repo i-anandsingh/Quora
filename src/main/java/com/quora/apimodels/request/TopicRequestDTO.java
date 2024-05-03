@@ -1,18 +1,16 @@
-package com.quora.apimodels.response;
+package com.quora.apimodels.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
+import java.util.List;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class LikeResponseDTO {
-    private String type;
-    private UUID id;
-    private String response;
+public class TopicRequestDTO {
+    private List<String> topics;
 }

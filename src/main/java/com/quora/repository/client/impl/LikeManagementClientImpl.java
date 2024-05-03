@@ -45,7 +45,7 @@ public class LikeManagementClientImpl implements LikeManagementClient {
         LikeOutputDTO outputDTO = new LikeOutputDTO();
         outputDTO.setId(inputDTO.getId());
         outputDTO.setType(inputDTO.getType());
-        outputDTO.setSome_text("Liked Successfully!!");
+        outputDTO.setResponse("Liked Successfully!!");
 
         return outputDTO;
     }

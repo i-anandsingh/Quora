@@ -14,5 +14,5 @@ import java.util.UUID;
 public class LikeOutputDTO {
     private String type;
     private UUID id;
-    private String some_text;
+    private String response;
 }
