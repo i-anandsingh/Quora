@@ -3,7 +3,6 @@ package com.quora.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,5 +23,11 @@ public class UserEntity extends BaseEntity{
     private String bio;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
-    List<QuestionEntity> questions = new ArrayList<>();
+    private List<QuestionEntity> questions;
+
+    @OneToMany(mappedBy = "follower", cascade = CascadeType.REMOVE)
+    private List<FollowEntity> follower;
+
+    @OneToMany(mappedBy = "following", cascade = CascadeType.REMOVE)
+    private List<FollowEntity> following;
 }
