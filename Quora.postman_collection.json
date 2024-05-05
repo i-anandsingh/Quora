@@ -1,0 +1,437 @@
+{
+	"info": {
+		"_postman_id": "33f8e887-d10f-44f3-9de3-c7d782b22f0c",
+		"name": "Quora",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19605439"
+	},
+	"item": [
+		{
+			"name": "UserManagement",
+			"item": [
+				{
+					"name": "ModifyUserById",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\" : \"i.anandsingh\",\n    \"emailId\" : \"anandsingh9650@gmail.com\",\n    \"bio\" : \"I am Anand Singh.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9094/Quora/v1/users/i.anandsingh",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9094",
+							"path": [
+								"Quora",
+								"v1",
+								"users",
+								"i.anandsingh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\" : \"Anand Singh\",\n    \"emailId\" : \"anandsingh@gmail.com\",\n    \"bio\" : \"Second User.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9094/Quora/v1/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9094",
+							"path": [
+								"Quora",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FetchUserById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9094/Quora/v1/users/540c232d-f786-40e0-a2f9-1b0e6c346c91",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9094",
+							"path": [
+								"Quora",
+								"v1",
+								"users",
+								"540c232d-f786-40e0-a2f9-1b0e6c346c91"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "QuestionManagement",
+			"item": [
+				{
+					"name": "PostQuestion",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_Id\" : \"9a1affca-db46-43fe-ae5d-01e6b9e4b502\",\n    \"title\" : \"First question\",\n    \"body\" : \"Posting first question \",\n    \"topicTags\" : [\n            \"Question\",\n            \"Number 1\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9094/Quora/v1/questions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9094",
+							"path": [
+								"Quora",
+								"v1",
+								"questions"
+							],
+							"query": [
+								{
+									"key": "text",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "tag",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SearchQuestion",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9094/Quora/v1/questions/search?tag=New ",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9094",
+							"path": [
+								"Quora",
+								"v1",
+								"questions",
+								"search"
+							],
+							"query": [
+								{
+									"key": "text",
+									"value": "Random Question",
+									"disabled": true
+								},
+								{
+									"key": "tag",
+									"value": "New "
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "AnswerManagement",
+			"item": [
+				{
+					"name": "PostAnAnswer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\" : \"9200d8e0-742d-4787-be9e-df28a7d47e36\",\n    \"answer\" : \"Hi!! This is the first answer.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9094/Quora/v1/questions/0511a68b-e1dc-46ce-b0ff-a6214b22df50/answers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9094",
+							"path": [
+								"Quora",
+								"v1",
+								"questions",
+								"0511a68b-e1dc-46ce-b0ff-a6214b22df50",
+								"answers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ModifyAnswer",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"answer\" : \"Hey!! This is the modifies answer.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9094/Quora/v1/answers/3729bf0b-ddbc-4d46-bf34-ab52a32b4d59",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9094",
+							"path": [
+								"Quora",
+								"v1",
+								"answers",
+								"3729bf0b-ddbc-4d46-bf34-ab52a32b4d59"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CommentManagement",
+			"item": [
+				{
+					"name": "CommentOnAnswer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\" : \"2b8571fd-adc7-49ce-8481-5b5552e59f47\",\n    \"comment\" : \"This is a another comment on answer.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9094/Quora/v1/answer/3729bf0b-ddbc-4d46-bf34-ab52a32b4d59/comments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9094",
+							"path": [
+								"Quora",
+								"v1",
+								"answer",
+								"3729bf0b-ddbc-4d46-bf34-ab52a32b4d59",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CommentOnComment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\" : \"86a1b765-5790-4d62-b5cf-08cf27513c15\",\n    \"comment\" : \"Commenting on a comment.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9094/Quora/v1/comments/3729bf0b-ddbc-4d46-bf34-ab52a32b4d59/comments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9094",
+							"path": [
+								"Quora",
+								"v1",
+								"comments",
+								"3729bf0b-ddbc-4d46-bf34-ab52a32b4d59",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "LikeManagement",
+			"item": [
+				{
+					"name": "Like",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\" : \"9a1affca-db46-43fe-ae5d-01e6b9e4b502\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9094/Quora/v1/question/fc1eea6d-5a1d-4bad-9d53-2769f056bf1b/like",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9094",
+							"path": [
+								"Quora",
+								"v1",
+								"question",
+								"fc1eea6d-5a1d-4bad-9d53-2769f056bf1b",
+								"like"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TopicManagement",
+			"item": [
+				{
+					"name": "SaveTopics",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"topics\" : [\n        \"Pyhton\",\n        \"C++\",\n        \"Hibenate\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9094/Quora/v1/topics",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9094",
+							"path": [
+								"Quora",
+								"v1",
+								"topics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FetchAllTopics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9094/Quora/v1/topics",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9094",
+							"path": [
+								"Quora",
+								"v1",
+								"topics"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "FollowManagement",
+			"item": [
+				{
+					"name": "Follow",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9094/Quora/v1/users/de76ce87-501e-40d4-ac4e-04d5f825f512/follow/0e1a0f2f-9c26-4991-9904-4e3512e8164f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9094",
+							"path": [
+								"Quora",
+								"v1",
+								"users",
+								"de76ce87-501e-40d4-ac4e-04d5f825f512",
+								"follow",
+								"0e1a0f2f-9c26-4991-9904-4e3512e8164f"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
