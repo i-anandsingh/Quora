@@ -3,6 +3,7 @@ package com.quora.repository.client.impl;
 import com.quora.entity.AnswerEntity;
 import com.quora.entity.CommentEntity;
 import com.quora.entity.UserEntity;
+import com.quora.exceptionHandler.CustomException;
 import com.quora.mapper.CommentManagementMapper;
 import com.quora.mapper.CommentOnCommentMapper;
 import com.quora.repository.AnswerManagementRepository;
@@ -41,9 +42,7 @@ public class CommentManagementClientImpl implements CommentManagementClient {
         UserEntity user = userManagementRepository.findByUserId(inputDTO.getUserId());
         AnswerEntity answer = answerManagementRepository.findByAnswerId(inputDTO.getAnswerId());
         if(user == null || answer == null){
-            // TODO -> throw an exception
-            System.out.println("UserId or AnswerId Not Found");
-            return null;
+            throw new CustomException("UserId or AnswerId Not Found");
         }
         CommentEntity commentEntity = commentManagementMapper.mapInputToEntity(inputDTO);
         commentEntity.setCommentId(UUID.randomUUID());

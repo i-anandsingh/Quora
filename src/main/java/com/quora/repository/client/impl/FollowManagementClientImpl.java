@@ -36,7 +36,6 @@ public class FollowManagementClientImpl implements FollowManagementClient {
         entity.setFollowing(following);
         entity.setFollower(follower);
         entity.setId(UUID.randomUUID());
-        // TODO -> Implement a test case if follower is already following the targetId
         followManagementRepository.save(entity);
 
         FollowOutputDTO outputDTO = new FollowOutputDTO();
