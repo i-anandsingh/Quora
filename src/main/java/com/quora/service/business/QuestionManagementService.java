@@ -1,8 +1,9 @@
 package com.quora.service.business;
 
 import com.quora.entity.QuestionEntity;
+import com.quora.exceptionHandler.CustomException;
 import com.quora.mapper.QuestionManagementMapper;
-import com.quora.repository.client.impl.QuestionManagementClientImpl;
+import com.quora.repository.client.QuestionManagementClient;
 import com.quora.service.models.request.QuestionInputDTO;
 import com.quora.service.models.response.QuestionOutputDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,20 +17,20 @@ import java.util.Set;
 @Service
 public class QuestionManagementService {
 
-    private final QuestionManagementClientImpl questionManagementClientImpl;
+    private final QuestionManagementClient questionManagementClient;
     private final QuestionManagementMapper questionManagementMapper = QuestionManagementMapper.INSTANCE;
 
     @Autowired
-    public QuestionManagementService(QuestionManagementClientImpl questionManagementClientImpl) {
-        this.questionManagementClientImpl = questionManagementClientImpl;
+    public QuestionManagementService(QuestionManagementClient questionManagementClient) {
+        this.questionManagementClient = questionManagementClient;
     }
 
     public QuestionOutputDTO postQuestion(QuestionInputDTO inputDTO){
-        return questionManagementClientImpl.postQuestion(inputDTO);
+        return questionManagementClient.postQuestion(inputDTO);
     }
 
     public List<QuestionOutputDTO> searchQuestion(QuestionInputDTO inputDTO){
-        List<QuestionEntity> entityList = questionManagementClientImpl.searchQuestion(inputDTO);
+        List<QuestionEntity> entityList = questionManagementClient.searchQuestion(inputDTO);
         return filterQuestions(entityList, inputDTO);
     }
 
@@ -44,12 +45,6 @@ public class QuestionManagementService {
         } else {
             return questionManagementMapper.mapEntityToOutputList(entityList);
         }
-
-        if(outputDTOList.size() == 0){
-            return null;
-            // TODO later -> throw new BusinessException(Response.Status.NOT_FOUND,"No Question Found");
-        }
-
         Set<QuestionOutputDTO> uniqueOutputDTOs = new HashSet<>(outputDTOList);
         outputDTOList = new ArrayList<>(uniqueOutputDTOs);
 
@@ -62,8 +57,7 @@ public class QuestionManagementService {
             for (QuestionEntity entity : entityList) {
                 for (String innerTags : entity.getTopicTags()) {
                     if (bodyTag.equals(innerTags)) {
-                        QuestionOutputDTO outputDTO;
-                        outputDTO = questionManagementMapper.mapEntityToOutput(entity);
+                        QuestionOutputDTO outputDTO = questionManagementMapper.mapEntityToOutput(entity);
                         outputDTOList.add(outputDTO);
                     }
                 }
@@ -71,7 +65,7 @@ public class QuestionManagementService {
         }
         if (outputDTOList.size() != 0) {
         } else {
-            // TODO later -> throw new BusinessException(Response.Status.NOT_FOUND,"No Question Found");
+            throw new CustomException("No question base on tags provided exists!!!");
         }
         return outputDTOList;
     }
@@ -87,7 +81,7 @@ public class QuestionManagementService {
             }
             if (outputDTOList.size() != 0) {
             } else {
-                // TODO later -> throw new BusinessException(Response.Status.NOT_FOUND,"No Question Found");
+                throw new CustomException("No question base on text provided exists!!!");
             }
         return outputDTOList;
     }

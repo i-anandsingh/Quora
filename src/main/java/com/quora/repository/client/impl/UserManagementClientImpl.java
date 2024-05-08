@@ -33,8 +33,7 @@ public class UserManagementClientImpl implements UserManagementClient {
     public UserDetailsOutputDTO fetchUserDetails(UserDetailsInputDTO inputDTO) {
         UserEntity entity = userDetailsRepository.findByUserId(inputDTO.getUserId());
         if(entity == null){
-            System.out.println("No User Exists");
-            return null;
+            throw new CustomException("No User Exists!!!");
         }
         return userDetailsMapper.mapEntityToOutput(entity);
     }
