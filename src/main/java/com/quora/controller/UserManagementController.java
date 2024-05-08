@@ -41,8 +41,12 @@ public class UserManagementController {
     }
 
     @PutMapping("/users/{userId}")
-    public ResponseEntity<UserDetailsResponseDTO> updateUser(@RequestBody UserDetailsRequestDTO requestDTO){
+    public ResponseEntity<UserDetailsResponseDTO> updateUser(
+            @RequestBody UserDetailsRequestDTO requestDTO,
+            @PathVariable UUID userId
+    ){
         UserDetailsInputDTO inputDTO = userDetailsMapper.mapRequestToInput(requestDTO);
+        inputDTO.setUserId(userId);
         UserDetailsOutputDTO outputDTO = userService.updateUserDetails(inputDTO);
         UserDetailsResponseDTO responseDTO = userDetailsMapper.mapOutputToResponse(outputDTO);
         return new ResponseEntity<>(responseDTO, HttpStatus.ACCEPTED);

@@ -10,10 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.UUID;
 
 @Repository
-public interface UserManagementRepository extends JpaRepository<UserEntity, String> {
+public interface UserManagementRepository extends JpaRepository<UserEntity, UUID> {
     UserEntity findByUserId(UUID userId);
     @Modifying
     @Transactional
-    @Query(value = "UPDATE USER_DETAILS U SET U.BIO = :bio WHERE U.USERID = :Id", nativeQuery = true)
+    @Query(value = "UPDATE USERS_TABLE U SET U.BIO = :bio WHERE U.USER_ID = :Id", nativeQuery = true)
     void updateUserDetailsById(String bio, UUID Id);
 }

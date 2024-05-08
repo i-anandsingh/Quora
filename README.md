@@ -21,11 +21,16 @@ This backend application enables the user to do the following:-
 ### <u>User Management</u>
 1. Create a user
    1. @PostMapping : "/Quora/v1/users"
-   2. Request Body : String userId, String emailId, String bio.
+   2. Request Body : UUID userId, String username, String emailId & String bio.
    
 2. Modify a user
    1. @PutMapping : "/Quora/v1/users/{userId}"
-   2. Request Body : String userId, String emailId, String bio.
+   2. Request Body : UUID userId, String emailId, String bio.
 
 3. Fetch a user
    1. @GetMapping : "/Quora/v1/users/{userId}"
+
+### <u>Question Management</u>
+1. Post a Question
+   1. @PostMapping : "/Quora/v1/questions"
+   2. Request Body : 

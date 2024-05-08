@@ -13,7 +13,6 @@ import java.util.UUID;
 
 @Component
 public class UserManagementClientImpl implements UserManagementClient {
-    private UUID uuid;
     private final UserManagementRepository userDetailsRepository;
     private static final UserDetailsMapper userDetailsMapper = UserDetailsMapper.INSTANCE;
 
@@ -24,7 +23,7 @@ public class UserManagementClientImpl implements UserManagementClient {
     @Override
     public UserDetailsOutputDTO saveUserDetails(UserDetailsInputDTO inputDTO) {
         UserEntity entity = userDetailsMapper.mapInputToEntity(inputDTO);
-        entity.setUserId(uuid.randomUUID());
+        entity.setUserId(UUID.randomUUID());
         userDetailsRepository.save(entity);
         return userDetailsMapper.mapEntityToOutput(entity);
     }
@@ -32,13 +31,24 @@ public class UserManagementClientImpl implements UserManagementClient {
     @Override
     public UserDetailsOutputDTO fetchUserDetails(UserDetailsInputDTO inputDTO) {
         UserEntity entity = userDetailsRepository.findByUserId(inputDTO.getUserId());
+        if(entity == null){
+            System.out.println("No User Exists");
+            return null;
+        }
         return userDetailsMapper.mapEntityToOutput(entity);
     }
 
     @Override
     public UserDetailsOutputDTO updateUserDetails(UserDetailsInputDTO inputDTO) {
-        userDetailsRepository.updateUserDetailsById(inputDTO.getBio(), inputDTO.getUserId());
         UserEntity entity = userDetailsRepository.findByUserId(inputDTO.getUserId());
-        return userDetailsMapper.mapEntityToOutput(entity);
+        if(entity == null){
+            System.out.println("No User Exists!!!");
+            return null;
+        } else {
+            userDetailsRepository.updateUserDetailsById(inputDTO.getBio(), inputDTO.getUserId());
+            System.out.println("User Details Updated!!!");
+            entity.setBio(inputDTO.getBio());
+            return userDetailsMapper.mapEntityToOutput(entity);
+        }
     }
 }
