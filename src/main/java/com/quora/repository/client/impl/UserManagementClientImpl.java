@@ -1,6 +1,7 @@
 package com.quora.repository.client.impl;
 
 import com.quora.entity.UserEntity;
+import com.quora.exceptionHandler.CustomException;
 import com.quora.mapper.UserDetailsMapper;
 import com.quora.repository.UserManagementRepository;
 import com.quora.repository.client.UserManagementClient;
@@ -42,8 +43,7 @@ public class UserManagementClientImpl implements UserManagementClient {
     public UserDetailsOutputDTO updateUserDetails(UserDetailsInputDTO inputDTO) {
         UserEntity entity = userDetailsRepository.findByUserId(inputDTO.getUserId());
         if(entity == null){
-            System.out.println("No User Exists!!!");
-            return null;
+            throw new CustomException("No User Exists!!!");
         } else {
             userDetailsRepository.updateUserDetailsById(inputDTO.getBio(), inputDTO.getUserId());
             System.out.println("User Details Updated!!!");
