@@ -1,4 +1,4 @@
-package com.quora.repository.client.impl;
+package com.quora.service.client.impl;
 
 import com.quora.entity.AnswerEntity;
 import com.quora.entity.QuestionEntity;
@@ -8,7 +8,7 @@ import com.quora.mapper.ModifyAnswerMapper;
 import com.quora.repository.AnswerManagementRepository;
 import com.quora.repository.QuestionManagementRepository;
 import com.quora.repository.UserManagementRepository;
-import com.quora.repository.client.AnswerManagementClient;
+import com.quora.service.client.AnswerManagementClient;
 import com.quora.service.models.request.AnswerInputDTO;
 import com.quora.service.models.request.ModifyAnswerInputDTO;
 import com.quora.service.models.response.AnswerOutputDTO;

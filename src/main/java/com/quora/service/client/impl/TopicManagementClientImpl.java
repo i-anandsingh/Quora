@@ -1,10 +1,10 @@
-package com.quora.repository.client.impl;
+package com.quora.service.client.impl;
 
 import com.quora.apimodels.response.FetchAllTopicsResponseDTO;
 import com.quora.entity.TopicEntity;
 import com.quora.mapper.TopicManagementMapper;
 import com.quora.repository.TopicManagementRepository;
-import com.quora.repository.client.TopicManagementClient;
+import com.quora.service.client.TopicManagementClient;
 import com.quora.service.models.request.TopicInputDTO;
 import com.quora.service.models.response.TopicOutputDTO;
 import org.springframework.beans.factory.annotation.Autowired;

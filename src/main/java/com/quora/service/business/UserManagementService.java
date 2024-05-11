@@ -1,6 +1,6 @@
 package com.quora.service.business;
 
-import com.quora.repository.client.UserManagementClient;
+import com.quora.service.client.UserManagementClient;
 import com.quora.service.models.request.UserDetailsInputDTO;
 import com.quora.service.models.response.UserDetailsOutputDTO;
 import org.springframework.beans.factory.annotation.Autowired;

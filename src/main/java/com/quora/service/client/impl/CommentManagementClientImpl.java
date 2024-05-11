@@ -1,4 +1,4 @@
-package com.quora.repository.client.impl;
+package com.quora.service.client.impl;
 
 import com.quora.entity.AnswerEntity;
 import com.quora.entity.CommentEntity;
@@ -9,7 +9,7 @@ import com.quora.mapper.CommentOnCommentMapper;
 import com.quora.repository.AnswerManagementRepository;
 import com.quora.repository.CommentManagementRepository;
 import com.quora.repository.UserManagementRepository;
-import com.quora.repository.client.CommentManagementClient;
+import com.quora.service.client.CommentManagementClient;
 import com.quora.service.models.request.CommentInputDTO;
 import com.quora.service.models.request.CommentOnCommentInputDTO;
 import com.quora.service.models.response.CommentOnCommentOutputDTO;

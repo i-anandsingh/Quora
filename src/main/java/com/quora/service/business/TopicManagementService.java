@@ -2,7 +2,7 @@ package com.quora.service.business;
 
 import com.quora.apimodels.response.FetchAllTopicsResponseDTO;
 import com.quora.mapper.TopicManagementMapper;
-import com.quora.repository.client.TopicManagementClient;
+import com.quora.service.client.TopicManagementClient;
 import com.quora.service.models.request.TopicInputDTO;
 import com.quora.service.models.response.TopicOutputDTO;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,11 +1,11 @@
-package com.quora.repository.client.impl;
+package com.quora.service.client.impl;
 
 import com.quora.entity.QuestionEntity;
 import com.quora.entity.UserEntity;
 import com.quora.mapper.QuestionManagementMapper;
 import com.quora.repository.QuestionManagementRepository;
 import com.quora.repository.UserManagementRepository;
-import com.quora.repository.client.QuestionManagementClient;
+import com.quora.service.client.QuestionManagementClient;
 import com.quora.service.models.request.QuestionInputDTO;
 import com.quora.service.models.response.QuestionOutputDTO;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package com.quora.service.business;
 
-import com.quora.repository.client.CommentManagementClient;
+import com.quora.service.client.CommentManagementClient;
 import com.quora.service.models.request.CommentInputDTO;
 import com.quora.service.models.request.CommentOnCommentInputDTO;
 import com.quora.service.models.response.CommentOnCommentOutputDTO;

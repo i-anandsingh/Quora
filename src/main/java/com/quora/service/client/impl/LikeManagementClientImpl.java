@@ -1,11 +1,11 @@
-package com.quora.repository.client.impl;
+package com.quora.service.client.impl;
 
 import com.quora.entity.Like;
 import com.quora.entity.LikeEntity;
 import com.quora.entity.UserEntity;
 import com.quora.repository.LikeManagementRepository;
 import com.quora.repository.UserManagementRepository;
-import com.quora.repository.client.LikeManagementClient;
+import com.quora.service.client.LikeManagementClient;
 import com.quora.service.models.request.LikeInputDTO;
 import com.quora.service.models.response.LikeOutputDTO;
 import org.springframework.beans.factory.annotation.Autowired;

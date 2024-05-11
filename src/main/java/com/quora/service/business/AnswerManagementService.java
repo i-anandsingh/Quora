@@ -1,6 +1,6 @@
 package com.quora.service.business;
 
-import com.quora.repository.client.impl.AnswerManagementClientImpl;
+import com.quora.service.client.impl.AnswerManagementClientImpl;
 import com.quora.service.models.request.AnswerInputDTO;
 import com.quora.service.models.request.ModifyAnswerInputDTO;
 import com.quora.service.models.response.AnswerOutputDTO;

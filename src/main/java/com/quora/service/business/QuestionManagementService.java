@@ -3,7 +3,7 @@ package com.quora.service.business;
 import com.quora.entity.QuestionEntity;
 import com.quora.exceptionHandler.CustomException;
 import com.quora.mapper.QuestionManagementMapper;
-import com.quora.repository.client.QuestionManagementClient;
+import com.quora.service.client.QuestionManagementClient;
 import com.quora.service.models.request.QuestionInputDTO;
 import com.quora.service.models.response.QuestionOutputDTO;
 import org.springframework.beans.factory.annotation.Autowired;

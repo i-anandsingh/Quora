@@ -1,10 +1,10 @@
-package com.quora.repository.client.impl;
+package com.quora.service.client.impl;
 
 import com.quora.entity.UserEntity;
 import com.quora.exceptionHandler.CustomException;
 import com.quora.mapper.UserDetailsMapper;
 import com.quora.repository.UserManagementRepository;
-import com.quora.repository.client.UserManagementClient;
+import com.quora.service.client.UserManagementClient;
 import com.quora.service.models.request.UserDetailsInputDTO;
 import com.quora.service.models.response.UserDetailsOutputDTO;
 import org.springframework.beans.factory.annotation.Autowired;

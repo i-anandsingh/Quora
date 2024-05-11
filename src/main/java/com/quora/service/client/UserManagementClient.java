@@ -1,4 +1,4 @@
-package com.quora.repository.client;
+package com.quora.service.client;
 
 import com.quora.service.models.request.UserDetailsInputDTO;
 import com.quora.service.models.response.UserDetailsOutputDTO;
