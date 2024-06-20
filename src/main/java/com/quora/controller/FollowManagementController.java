@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.UUID;
-
 @RestController
 @RequestMapping("/v1")
 public class FollowManagementController {
@@ -30,8 +28,8 @@ public class FollowManagementController {
 
     @PostMapping("/users/{userId}/follow/{targetId}")
     private ResponseEntity<FollowResponseDTO> followUsers(
-            @PathVariable UUID userId,
-            @PathVariable UUID targetId
+            @PathVariable String userId,
+            @PathVariable String targetId
     ) {
         FollowInputDTO inputDTO = new FollowInputDTO();
         inputDTO.setFollower(userId);

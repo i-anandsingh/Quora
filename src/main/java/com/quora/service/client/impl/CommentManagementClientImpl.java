@@ -39,7 +39,7 @@ public class CommentManagementClientImpl implements CommentManagementClient {
     }
     @Override
     public CommentOutputDTO commentOnAnswer(CommentInputDTO inputDTO) {
-        UserEntity user = userManagementRepository.findByUserId(inputDTO.getUserId());
+        UserEntity user = userManagementRepository.findByUsername(inputDTO.getUsername());
         AnswerEntity answer = answerManagementRepository.findByAnswerId(inputDTO.getAnswerId());
         if(user == null || answer == null){
             throw new CustomException("UserId or AnswerId Not Found");

@@ -1,7 +1,6 @@
 package com.quora.controller;
 
 import com.quora.apimodels.request.UserDetailsRequestDTO;
-import com.quora.apimodels.response.UserDetailsResponseDTO;
 import com.quora.mapper.UserDetailsMapper;
 import com.quora.service.business.UserManagementService;
 import com.quora.service.models.request.UserDetailsInputDTO;
@@ -10,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/v1")
@@ -24,31 +21,32 @@ public class UserManagementController {
         this.userService = userService;
     }
     @PostMapping("/users")
-    public ResponseEntity<UserDetailsResponseDTO> createUser (@RequestBody UserDetailsRequestDTO requestDTO){
-        UserDetailsInputDTO inputDTO = userDetailsMapper.mapRequestToInput(requestDTO);
-        UserDetailsOutputDTO outputDTO = userService.createUserDetails(inputDTO);
-        UserDetailsResponseDTO responseDTO = userDetailsMapper.mapOutputToResponse(outputDTO);
-        return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
-    }
-
-    @GetMapping("/users/{userId}")
-    public ResponseEntity<UserDetailsResponseDTO> fetchUser(@PathVariable UUID userId) {
-        UserDetailsInputDTO inputDTO = new UserDetailsInputDTO();
-        inputDTO.setUserId(userId);
-        UserDetailsOutputDTO outputDTO = userService.fetchUserDetails(inputDTO);
-        UserDetailsResponseDTO responseDTO = userDetailsMapper.mapOutputToResponse(outputDTO);
-        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
-    }
-
-    @PutMapping("/users/{userId}")
-    public ResponseEntity<UserDetailsResponseDTO> updateUser(
-            @RequestBody UserDetailsRequestDTO requestDTO,
-            @PathVariable UUID userId
+    public ResponseEntity<UserDetailsOutputDTO> createUser (
+            @RequestBody UserDetailsRequestDTO requestDTO
     ){
         UserDetailsInputDTO inputDTO = userDetailsMapper.mapRequestToInput(requestDTO);
-        inputDTO.setUserId(userId);
+        UserDetailsOutputDTO outputDTO = userService.createUserDetails(inputDTO);
+        return new ResponseEntity<>(outputDTO, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/users/{username}")
+    public ResponseEntity<UserDetailsOutputDTO> fetchUser(
+            @PathVariable String username
+    ) {
+        UserDetailsInputDTO inputDTO = new UserDetailsInputDTO();
+        inputDTO.setUsername(username);
+        UserDetailsOutputDTO outputDTO = userService.fetchUserDetails(inputDTO);
+        return new ResponseEntity<>(outputDTO, HttpStatus.OK);
+    }
+
+    @PutMapping("/users/{username}")
+    public ResponseEntity<UserDetailsOutputDTO> updateUser(
+            @RequestBody UserDetailsRequestDTO requestDTO,
+            @PathVariable String username
+    ){
+        UserDetailsInputDTO inputDTO = userDetailsMapper.mapRequestToInput(requestDTO);
+        inputDTO.setUsername(username);
         UserDetailsOutputDTO outputDTO = userService.updateUserDetails(inputDTO);
-        UserDetailsResponseDTO responseDTO = userDetailsMapper.mapOutputToResponse(outputDTO);
-        return new ResponseEntity<>(responseDTO, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(outputDTO, HttpStatus.ACCEPTED);
     }
 }

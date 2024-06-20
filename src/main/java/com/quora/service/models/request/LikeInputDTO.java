@@ -12,7 +12,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LikeInputDTO {
-    private UUID userId;
+    private String username;
     private String type;
     private UUID id;
 }

@@ -3,6 +3,7 @@ package com.quora.service.client.impl;
 import com.quora.entity.AnswerEntity;
 import com.quora.entity.QuestionEntity;
 import com.quora.entity.UserEntity;
+import com.quora.exceptionHandler.CustomException;
 import com.quora.mapper.AnswerManagementMapper;
 import com.quora.mapper.ModifyAnswerMapper;
 import com.quora.repository.AnswerManagementRepository;
@@ -37,11 +38,10 @@ public class AnswerManagementClientImpl implements AnswerManagementClient {
         this.questionManagementRepository = questionManagementRepository;
     }
     public AnswerOutputDTO postAnswer(AnswerInputDTO inputDTO) {
-        UserEntity user = userManagementRepository.findByUserId(inputDTO.getUserId());
+        UserEntity user = userManagementRepository.findByUsername(inputDTO.getUsername());
         QuestionEntity question = questionManagementRepository.findByQuestionId(inputDTO.getQuestionId());
         if (user == null) {
-            // TODO -> Return some Exception
-            return null;
+            throw new CustomException("Register yourself first.");
         }
         AnswerEntity entity = answerManagementMapper.mapInputToEntity(inputDTO);
         entity.setAnswerId(UUID.randomUUID());

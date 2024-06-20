@@ -1,7 +1,6 @@
 package com.quora.mapper;
 
 import com.quora.apimodels.request.UserDetailsRequestDTO;
-import com.quora.apimodels.response.UserDetailsResponseDTO;
 import com.quora.entity.UserEntity;
 import com.quora.service.models.request.UserDetailsInputDTO;
 import com.quora.service.models.response.UserDetailsOutputDTO;
@@ -9,7 +8,7 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-05-04T00:20:56+0530",
+    date = "2024-06-20T17:49:43+0530",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-8.7.jar, environment: Java 21.0.1 (Oracle Corporation)"
 )
 public class UserDetailsMapperImpl implements UserDetailsMapper {
@@ -30,22 +29,6 @@ public class UserDetailsMapperImpl implements UserDetailsMapper {
     }
 
     @Override
-    public UserDetailsResponseDTO mapOutputToResponse(UserDetailsOutputDTO outputDTO) {
-        if ( outputDTO == null ) {
-            return null;
-        }
-
-        UserDetailsResponseDTO.UserDetailsResponseDTOBuilder userDetailsResponseDTO = UserDetailsResponseDTO.builder();
-
-        userDetailsResponseDTO.userId( outputDTO.getUserId() );
-        userDetailsResponseDTO.username( outputDTO.getUsername() );
-        userDetailsResponseDTO.emailId( outputDTO.getEmailId() );
-        userDetailsResponseDTO.bio( outputDTO.getBio() );
-
-        return userDetailsResponseDTO.build();
-    }
-
-    @Override
     public UserEntity mapInputToEntity(UserDetailsInputDTO inputDTO) {
         if ( inputDTO == null ) {
             return null;
@@ -53,7 +36,6 @@ public class UserDetailsMapperImpl implements UserDetailsMapper {
 
         UserEntity userEntity = new UserEntity();
 
-        userEntity.setUserId( inputDTO.getUserId() );
         userEntity.setUsername( inputDTO.getUsername() );
         userEntity.setEmailId( inputDTO.getEmailId() );
         userEntity.setBio( inputDTO.getBio() );

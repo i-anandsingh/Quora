@@ -23,6 +23,12 @@ public class UserManagementClientImpl implements UserManagementClient {
     }
     @Override
     public UserDetailsOutputDTO saveUserDetails(UserDetailsInputDTO inputDTO) {
+        if(userDetailsRepository.findByUsername(inputDTO.getUsername()) != null){
+            throw new CustomException("Username already exists!!!");
+        }
+        if(userDetailsRepository.findByEmailId(inputDTO.getEmailId()) != null){
+            throw new CustomException("Email already exists!!!");
+        }
         UserEntity entity = userDetailsMapper.mapInputToEntity(inputDTO);
         entity.setUserId(UUID.randomUUID());
         userDetailsRepository.save(entity);
@@ -31,7 +37,7 @@ public class UserManagementClientImpl implements UserManagementClient {
 
     @Override
     public UserDetailsOutputDTO fetchUserDetails(UserDetailsInputDTO inputDTO) {
-        UserEntity entity = userDetailsRepository.findByUserId(inputDTO.getUserId());
+        UserEntity entity = userDetailsRepository.findByUsername(inputDTO.getUsername());
         if(entity == null){
             throw new CustomException("No User Exists!!!");
         }
@@ -40,14 +46,12 @@ public class UserManagementClientImpl implements UserManagementClient {
 
     @Override
     public UserDetailsOutputDTO updateUserDetails(UserDetailsInputDTO inputDTO) {
-        UserEntity entity = userDetailsRepository.findByUserId(inputDTO.getUserId());
+        UserEntity entity = userDetailsRepository.findByUsername(inputDTO.getUsername());
         if(entity == null){
             throw new CustomException("No User Exists!!!");
-        } else {
-            userDetailsRepository.updateUserDetailsById(inputDTO.getBio(), inputDTO.getUserId());
-            System.out.println("User Details Updated!!!");
-            entity.setBio(inputDTO.getBio());
-            return userDetailsMapper.mapEntityToOutput(entity);
         }
+        userDetailsRepository.updateUserDetailsById(inputDTO.getBio(), inputDTO.getUsername());
+        entity.setBio(inputDTO.getBio());
+        return userDetailsMapper.mapEntityToOutput(entity);
     }
 }

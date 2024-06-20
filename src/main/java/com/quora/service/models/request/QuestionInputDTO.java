@@ -6,14 +6,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.UUID;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class QuestionInputDTO {
-    private UUID user_Id;
+    private String username;
     private String title;
     private String body;
     private String text;

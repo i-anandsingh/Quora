@@ -13,6 +13,6 @@ import java.util.UUID;
 @NoArgsConstructor
 public class CommentInputDTO {
     private UUID answerId;
-    private UUID userId;
+    private String username;
     private String comment;
 }

@@ -29,8 +29,8 @@ public class FollowManagementClientImpl implements FollowManagementClient {
     }
     @Override
     public FollowOutputDTO follow(FollowInputDTO inputDTO) {
-        UserEntity follower = userManagementRepository.findByUserId(inputDTO.getFollower());
-        UserEntity following = userManagementRepository.findByUserId(inputDTO.getFollowing());
+        UserEntity follower = userManagementRepository.findByUsername(inputDTO.getFollower());
+        UserEntity following = userManagementRepository.findByUsername(inputDTO.getFollowing());
 
         FollowEntity entity = new FollowEntity();
         entity.setFollowing(following);

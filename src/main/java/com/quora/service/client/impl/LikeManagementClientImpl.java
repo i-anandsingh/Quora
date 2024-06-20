@@ -33,7 +33,7 @@ public class LikeManagementClientImpl implements LikeManagementClient {
         if(type == null || id == null){
             throw new IllegalArgumentException("Invalid like type or item ID provided.");
         }
-        UserEntity user = userManagementRepository.findByUserId(inputDTO.getUserId());
+        UserEntity user = userManagementRepository.findByUsername(inputDTO.getUsername());
 
         Like likeType = Like.valueOf(type.toUpperCase());
         LikeEntity likeEntity = new LikeEntity();
