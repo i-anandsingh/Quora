@@ -10,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 public class QuestionManagementService {
@@ -36,18 +34,17 @@ public class QuestionManagementService {
 
     private List<QuestionOutputDTO> filterQuestions(List<QuestionEntity> entityList, QuestionInputDTO inputDTO) {
         List<QuestionOutputDTO> outputDTOList = new ArrayList<>();
-        if(inputDTO.getTitle() != null) {
-            List<QuestionOutputDTO> outputDTOText = filterBasedOnText(entityList, inputDTO.getTitle());
-            outputDTOList.addAll(outputDTOText);
-        } else if(inputDTO.getTopicTags() != null) {
-            List<QuestionOutputDTO> outputDTOTag = filterBasedOnTags(entityList, inputDTO.getTopicTags());
-            outputDTOList.addAll(outputDTOTag);
-        } else {
+        if(inputDTO.getTitle() == null && inputDTO.getTopicTags() == null){
             return questionManagementMapper.mapEntityToOutputList(entityList);
         }
-        Set<QuestionOutputDTO> uniqueOutputDTOs = new HashSet<>(outputDTOList);
-        outputDTOList = new ArrayList<>(uniqueOutputDTOs);
-
+        if(inputDTO.getTitle() != null) {
+            List<QuestionOutputDTO> outputDTOText = filterBasedOnTitle(entityList, inputDTO.getTitle());
+            outputDTOList.addAll(outputDTOText);
+        }
+        if(inputDTO.getTopicTags() != null) {
+            List<QuestionOutputDTO> outputDTOTag = filterBasedOnTags(entityList, inputDTO.getTopicTags());
+            outputDTOList.addAll(outputDTOTag);
+        }
         return outputDTOList;
     }
 
@@ -65,7 +62,7 @@ public class QuestionManagementService {
         return outputDTOList;
     }
 
-    private List<QuestionOutputDTO> filterBasedOnText(List<QuestionEntity> entityList, String title) {
+    private List<QuestionOutputDTO> filterBasedOnTitle(List<QuestionEntity> entityList, String title) {
         List<QuestionOutputDTO> outputDTOList = new ArrayList<>();
         for(QuestionEntity questionEntity : entityList){
             if(title.equals(questionEntity.getTitle())){

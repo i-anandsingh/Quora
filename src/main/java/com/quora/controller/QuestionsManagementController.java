@@ -35,7 +35,7 @@ public class QuestionsManagementController {
 
     @GetMapping("/questions/search")
     private ResponseEntity<List<QuestionOutputDTO>> searchQuestion(
-            @RequestParam(name = "text", required = false) String title,
+            @RequestParam(name = "title", required = false) String title,
             @RequestParam(name = "tag", required = false) String tags
     ){
         QuestionInputDTO inputDTO = new QuestionInputDTO();
