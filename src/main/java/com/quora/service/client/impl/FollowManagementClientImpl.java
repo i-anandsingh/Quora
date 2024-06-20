@@ -39,8 +39,8 @@ public class FollowManagementClientImpl implements FollowManagementClient {
         followManagementRepository.save(entity);
 
         FollowOutputDTO outputDTO = new FollowOutputDTO();
-        outputDTO.setFollower(follower.getUserId());
-        outputDTO.setFollowing(following.getUserId());
+        outputDTO.setFollower(follower.getId());
+        outputDTO.setFollowing(following.getId());
         outputDTO.setResponse("User Followed!!");
         return outputDTO;
     }

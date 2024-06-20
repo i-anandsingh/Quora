@@ -15,12 +15,13 @@ import java.util.UUID;
 @Component
 public class UserManagementClientImpl implements UserManagementClient {
     private final UserManagementRepository userDetailsRepository;
-    private static final UserDetailsMapper userDetailsMapper = UserDetailsMapper.INSTANCE;
+    private final UserDetailsMapper userDetailsMapper = UserDetailsMapper.INSTANCE;
 
     @Autowired
     public UserManagementClientImpl(UserManagementRepository userDetailsRepository){
         this.userDetailsRepository = userDetailsRepository;
     }
+
     @Override
     public UserDetailsOutputDTO saveUserDetails(UserDetailsInputDTO inputDTO) {
         if(userDetailsRepository.findByUsername(inputDTO.getUsername()) != null){
@@ -30,7 +31,7 @@ public class UserManagementClientImpl implements UserManagementClient {
             throw new CustomException("Email already exists!!!");
         }
         UserEntity entity = userDetailsMapper.mapInputToEntity(inputDTO);
-        entity.setUserId(UUID.randomUUID());
+        entity.setId(UUID.randomUUID());
         userDetailsRepository.save(entity);
         return userDetailsMapper.mapEntityToOutput(entity);
     }

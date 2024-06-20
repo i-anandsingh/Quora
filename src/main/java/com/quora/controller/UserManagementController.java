@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserManagementController {
 
     private final UserManagementService userService;
-    private UserDetailsMapper userDetailsMapper = UserDetailsMapper.INSTANCE;
+    private final UserDetailsMapper userDetailsMapper = UserDetailsMapper.INSTANCE;
     @Autowired
     public UserManagementController(UserManagementService userService){
         this.userService = userService;

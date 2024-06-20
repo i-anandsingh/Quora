@@ -1,16 +1,19 @@
 package com.quora.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
-@Entity(name = "likes_table")
-public class LikeEntity {
-    @Id
+@Getter
+@Setter
+@Entity
+@Table(name = "likes_table")
+public class LikeEntity extends BaseEntity {
+//    @Id
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private Like type;
 
     @OneToOne
-    UserEntity user;
+    private UserEntity user;
 }

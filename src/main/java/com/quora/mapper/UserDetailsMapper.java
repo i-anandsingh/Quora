@@ -5,6 +5,7 @@ import com.quora.entity.UserEntity;
 import com.quora.service.models.request.UserDetailsInputDTO;
 import com.quora.service.models.response.UserDetailsOutputDTO;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
@@ -13,5 +14,6 @@ public interface UserDetailsMapper {
     UserDetailsMapper INSTANCE = Mappers.getMapper(UserDetailsMapper.class);
     UserDetailsInputDTO mapRequestToInput(UserDetailsRequestDTO requestDTO);
     UserEntity mapInputToEntity(UserDetailsInputDTO inputDTO);
+    @Mapping(source = "entity.id", target = "userId")
     UserDetailsOutputDTO mapEntityToOutput(UserEntity entity);
 }

@@ -5,15 +5,11 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
-import java.util.UUID;
 
 @Getter
 @Setter
 @Entity(name = "answers_table")
 public class AnswerEntity extends BaseEntity{
-    @Id
-    @Column(nullable = false)
-    private UUID answerId;
 
     @ManyToOne
     private QuestionEntity question;

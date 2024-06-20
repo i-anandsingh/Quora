@@ -36,8 +36,8 @@ public class QuestionManagementService {
 
     private List<QuestionOutputDTO> filterQuestions(List<QuestionEntity> entityList, QuestionInputDTO inputDTO) {
         List<QuestionOutputDTO> outputDTOList = new ArrayList<>();
-        if(inputDTO.getText() != null) {
-            List<QuestionOutputDTO> outputDTOText = filterBasedOnText(entityList, inputDTO.getText());
+        if(inputDTO.getTitle() != null) {
+            List<QuestionOutputDTO> outputDTOText = filterBasedOnText(entityList, inputDTO.getTitle());
             outputDTOList.addAll(outputDTOText);
         } else if(inputDTO.getTopicTags() != null) {
             List<QuestionOutputDTO> outputDTOTag = filterBasedOnTags(entityList, inputDTO.getTopicTags());
@@ -51,38 +51,31 @@ public class QuestionManagementService {
         return outputDTOList;
     }
 
-    private List<QuestionOutputDTO> filterBasedOnTags(List<QuestionEntity> entityList, List<String> topicTag) {
+    private List<QuestionOutputDTO> filterBasedOnTags(List<QuestionEntity> entityList, String topicTags) {
         List<QuestionOutputDTO> outputDTOList = new ArrayList<>();
-        for(String bodyTag : topicTag) {
-            for (QuestionEntity entity : entityList) {
-                for (String innerTags : entity.getTopicTags()) {
-                    if (bodyTag.equals(innerTags)) {
-                        QuestionOutputDTO outputDTO = questionManagementMapper.mapEntityToOutput(entity);
-                        outputDTOList.add(outputDTO);
-                    }
-                }
+        for(QuestionEntity questionEntity : entityList) {
+            if(topicTags.equals(questionEntity.getTopicTags())){
+                QuestionOutputDTO outputDTO = questionManagementMapper.mapEntityToOutput(questionEntity);
+                outputDTOList.add(outputDTO);
             }
         }
-        if (outputDTOList.size() != 0) {
-        } else {
-            throw new CustomException("No question base on tags provided exists!!!");
+        if(outputDTOList.isEmpty()){
+            throw new CustomException("No matching topic tags found");
         }
         return outputDTOList;
     }
 
-    private List<QuestionOutputDTO> filterBasedOnText(List<QuestionEntity> entityList, String text) {
+    private List<QuestionOutputDTO> filterBasedOnText(List<QuestionEntity> entityList, String title) {
         List<QuestionOutputDTO> outputDTOList = new ArrayList<>();
-            for(QuestionEntity questionEntity : entityList){
-                QuestionOutputDTO outputDTO;
-                if(text.equals(questionEntity.getTitle())){
-                    outputDTO = questionManagementMapper.mapEntityToOutput(questionEntity);
-                    outputDTOList.add(outputDTO);
-                }
+        for(QuestionEntity questionEntity : entityList){
+            if(title.equals(questionEntity.getTitle())){
+                QuestionOutputDTO outputDTO = questionManagementMapper.mapEntityToOutput(questionEntity);
+                outputDTOList.add(outputDTO);
             }
-            if (outputDTOList.size() != 0) {
-            } else {
-                throw new CustomException("No question base on text provided exists!!!");
-            }
+        }
+        if(outputDTOList.isEmpty()) {
+            throw new CustomException("No question based on text exists!!!");
+        }
         return outputDTOList;
     }
 }

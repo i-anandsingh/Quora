@@ -1,17 +1,17 @@
 package com.quora.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
-import java.util.UUID;
 
-@Data
-@Entity(name = "users_table")
+@Getter
+@Setter
+@Entity
+@Table(name = "users_table")
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class UserEntity extends BaseEntity{
-    @Id
-    @Column(nullable = false)
-    private UUID userId;
 
     @Column(nullable = false, name = "username")
     private String username;

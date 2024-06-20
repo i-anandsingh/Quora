@@ -1,16 +1,13 @@
 package com.quora.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
-
-import java.util.UUID;
 
 @Data
 @Entity(name = "follow_table")
-public class FollowEntity {
-    @Id
-    @Column(nullable = false)
-    private UUID id;
+public class FollowEntity extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "followerId")

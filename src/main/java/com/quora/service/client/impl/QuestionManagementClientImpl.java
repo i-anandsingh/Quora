@@ -2,6 +2,7 @@ package com.quora.service.client.impl;
 
 import com.quora.entity.QuestionEntity;
 import com.quora.entity.UserEntity;
+import com.quora.exceptionHandler.CustomException;
 import com.quora.mapper.QuestionManagementMapper;
 import com.quora.repository.QuestionManagementRepository;
 import com.quora.repository.UserManagementRepository;
@@ -34,11 +35,10 @@ public class QuestionManagementClientImpl implements QuestionManagementClient {
     public QuestionOutputDTO postQuestion(QuestionInputDTO inputDTO) {
         UserEntity user = userManagementRepository.findByUsername(inputDTO.getUsername());
         if (user == null) {
-            // TODO -> Return some Exception
-            return null;
+            throw new CustomException("Please create an account first.");
         }
         QuestionEntity entity = questionManagementMapper.mapInputToEntity(inputDTO);
-        entity.setQuestionId(UUID.randomUUID());
+        entity.setId(UUID.randomUUID());
         entity.setUser(user);
         questionManagementRepository.save(entity);
         return questionManagementMapper.mapEntityToOutput(entity);
@@ -47,10 +47,10 @@ public class QuestionManagementClientImpl implements QuestionManagementClient {
     @Override
     public List<QuestionEntity> searchQuestion(QuestionInputDTO inputDTO) {
         QuestionEntity entity = new QuestionEntity();
-        entity.setTitle(inputDTO.getText());
+        entity.setTitle(inputDTO.getTitle());
         entity.setTopicTags(inputDTO.getTopicTags());
         return questionManagementRepository.findAll();
     }
 
-    //implement a method to search all the questions by a user
+    // TODO -> Implement all questions by user
 }

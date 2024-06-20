@@ -1,9 +1,5 @@
 package com.quora.service.client.impl;
 
-import com.quora.entity.AnswerEntity;
-import com.quora.entity.QuestionEntity;
-import com.quora.entity.UserEntity;
-import com.quora.exceptionHandler.CustomException;
 import com.quora.mapper.AnswerManagementMapper;
 import com.quora.mapper.ModifyAnswerMapper;
 import com.quora.repository.AnswerManagementRepository;
@@ -16,8 +12,6 @@ import com.quora.service.models.response.AnswerOutputDTO;
 import com.quora.service.models.response.ModifyAnswerOutputDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.UUID;
 
 @Component
 public class AnswerManagementClientImpl implements AnswerManagementClient {
@@ -38,28 +32,30 @@ public class AnswerManagementClientImpl implements AnswerManagementClient {
         this.questionManagementRepository = questionManagementRepository;
     }
     public AnswerOutputDTO postAnswer(AnswerInputDTO inputDTO) {
-        UserEntity user = userManagementRepository.findByUsername(inputDTO.getUsername());
-        QuestionEntity question = questionManagementRepository.findByQuestionId(inputDTO.getQuestionId());
-        if (user == null) {
-            throw new CustomException("Register yourself first.");
-        }
-        AnswerEntity entity = answerManagementMapper.mapInputToEntity(inputDTO);
-        entity.setAnswerId(UUID.randomUUID());
-        entity.setUser(user);
-        entity.setQuestion(question);
-        answerManagementRepository.save(entity);
-        return answerManagementMapper.mapEntityToOutput(entity);
+//        UserEntity user = userManagementRepository.findByUsername(inputDTO.getUsername());
+//        QuestionEntity question = questionManagementRepository.findByQuestionId(inputDTO.getQuestionId());
+//        if (user == null) {
+//            throw new CustomException("Register yourself first.");
+//        }
+//        AnswerEntity entity = answerManagementMapper.mapInputToEntity(inputDTO);
+//        entity.setId(UUID.randomUUID());
+//        entity.setUser(user);
+//        entity.setQuestion(question);
+//        answerManagementRepository.save(entity);
+//        return answerManagementMapper.mapEntityToOutput(entity);
+        return null;
     }
 
     public ModifyAnswerOutputDTO modifyAnswer(ModifyAnswerInputDTO inputDTO){
-        AnswerEntity entity = answerManagementRepository.findByAnswerId(inputDTO.getAnswerId());
-        if(entity == null){
-            // TODO -> return an exception
-            return null;
-        }
-        entity.setAnswer(inputDTO.getAnswer());
-        answerManagementRepository.save(entity);
-        return modifyAnswerMapper.mapEntityToOutput(entity);
+//        AnswerEntity entity = answerManagementRepository.findByAerId(inputDTO.getAnswerId());
+//        if(entity == null){
+//            // TODO -> return an exception
+//            return null;
+//        }
+//        entity.setAnswer(inputDTO.getAnswer());
+//        answerManagementRepository.save(entity);
+//        return modifyAnswerMapper.mapEntityToOutput(entity);
+        return null;
     }
 
 }

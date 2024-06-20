@@ -32,9 +32,7 @@ public class TopicManagementClientImpl implements TopicManagementClient {
         List<TopicEntity> topicEntityList = topicManagementRepository.findAll();
         List<String> topics = new ArrayList<>();
         for(TopicEntity entity : topicEntityList){
-            for(String topic : entity.getTopics()){
-                topics.add(topic);
-            }
+            topics.add(entity.getTopics());
         }
         FetchAllTopicsResponseDTO outputDTO = new FetchAllTopicsResponseDTO();
         outputDTO.setTopics(topics);
@@ -47,7 +45,6 @@ public class TopicManagementClientImpl implements TopicManagementClient {
         entity.setId(UUID.randomUUID());
         entity.setTopics(inputDTO.getTopics());
         topicManagementRepository.save(entity);
-
         return topicManagementMapper.mapEntityToOutput(entity);
     }
 }

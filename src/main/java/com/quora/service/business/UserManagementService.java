@@ -11,7 +11,7 @@ public class UserManagementService {
     private final UserManagementClient userDetailsClient;
 
     @Autowired
-    public UserManagementService(UserManagementClient userDetailsClient){
+    private UserManagementService(UserManagementClient userDetailsClient){
         this.userDetailsClient = userDetailsClient;
     }
 

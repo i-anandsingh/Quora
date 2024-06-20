@@ -1,7 +1,6 @@
 package com.quora.controller;
 
 import com.quora.apimodels.request.QuestionRequestDTO;
-import com.quora.apimodels.response.QuestionResponseDTO;
 import com.quora.mapper.QuestionManagementMapper;
 import com.quora.service.business.QuestionManagementService;
 import com.quora.service.models.request.QuestionInputDTO;
@@ -17,8 +16,8 @@ import java.util.List;
 @RequestMapping("/v1")
 public class QuestionsManagementController {
 
-    private QuestionManagementService questionManagementService;
-    private QuestionManagementMapper questionManagementMapper = QuestionManagementMapper.INSTANCE;
+    private final QuestionManagementService questionManagementService;
+    private final QuestionManagementMapper questionManagementMapper = QuestionManagementMapper.INSTANCE;
 
     @Autowired
     public QuestionsManagementController(QuestionManagementService questionManagementService){
@@ -26,23 +25,23 @@ public class QuestionsManagementController {
     }
 
     @PostMapping("/questions")
-    private ResponseEntity<QuestionResponseDTO> postQuestion(@RequestBody QuestionRequestDTO requestDTO){
+    private ResponseEntity<QuestionOutputDTO> postQuestion(
+            @RequestBody QuestionRequestDTO requestDTO
+    ){
         QuestionInputDTO inputDTO = questionManagementMapper.mapRequestToInput(requestDTO);
         QuestionOutputDTO outputDTO = questionManagementService.postQuestion(inputDTO);
-        QuestionResponseDTO responseDTO = questionManagementMapper.mapOutputToResponse(outputDTO);
-        return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
+        return new ResponseEntity<>(outputDTO, HttpStatus.CREATED);
     }
 
     @GetMapping("/questions/search")
-    private ResponseEntity<List<QuestionResponseDTO>> searchQuestion(
-            @RequestParam(name = "text", required = false) String text,
-            @RequestParam(name = "tag", required = false) List<String> tags
+    private ResponseEntity<List<QuestionOutputDTO>> searchQuestion(
+            @RequestParam(name = "text", required = false) String title,
+            @RequestParam(name = "tag", required = false) String tags
     ){
         QuestionInputDTO inputDTO = new QuestionInputDTO();
-        inputDTO.setText(text);
+        inputDTO.setTitle(title);
         inputDTO.setTopicTags(tags);
         List<QuestionOutputDTO> outputDTO = questionManagementService.searchQuestion(inputDTO);
-        List<QuestionResponseDTO> responseDTO = questionManagementMapper.mapOutputToResponseList(outputDTO);
-        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
+        return new ResponseEntity<>(outputDTO, HttpStatus.OK);
     }
 }
