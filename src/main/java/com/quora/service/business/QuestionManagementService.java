@@ -6,7 +6,6 @@ import com.quora.mapper.QuestionManagementMapper;
 import com.quora.service.client.QuestionManagementClient;
 import com.quora.service.models.request.QuestionInputDTO;
 import com.quora.service.models.response.QuestionOutputDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ public class QuestionManagementService {
     private final QuestionManagementClient questionManagementClient;
     private final QuestionManagementMapper questionManagementMapper = QuestionManagementMapper.INSTANCE;
 
-    @Autowired
+
     public QuestionManagementService(QuestionManagementClient questionManagementClient) {
         this.questionManagementClient = questionManagementClient;
     }

@@ -10,13 +10,13 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "users_table")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class UserEntity extends BaseEntity{
 
     @Column(nullable = false, name = "username")
     private String username;
 
-    @Column(nullable = false, name = "email_id")
+    @Column(nullable = false, name = "emailId")
     private String emailId;
 
     @Column(name = "bio")

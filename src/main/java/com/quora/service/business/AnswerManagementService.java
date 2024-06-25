@@ -1,27 +1,25 @@
 package com.quora.service.business;
 
-import com.quora.service.client.impl.AnswerManagementClientImpl;
+import com.quora.service.client.AnswerManagementClient;
 import com.quora.service.models.request.AnswerInputDTO;
 import com.quora.service.models.request.ModifyAnswerInputDTO;
 import com.quora.service.models.response.AnswerOutputDTO;
 import com.quora.service.models.response.ModifyAnswerOutputDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AnswerManagementService {
-    private AnswerManagementClientImpl answerManagementClientImpl;
+    private AnswerManagementClient answerManagementClient;
 
-    @Autowired
-    private AnswerManagementService(AnswerManagementClientImpl answerManagementClientImpl){
-        this.answerManagementClientImpl = answerManagementClientImpl;
+    private AnswerManagementService(AnswerManagementClient answerManagementClient){
+        this.answerManagementClient = answerManagementClient;
     }
 
     public AnswerOutputDTO postAnswer(AnswerInputDTO inputDTO){
-        return answerManagementClientImpl.postAnswer(inputDTO);
+        return answerManagementClient.postAnswer(inputDTO);
     }
 
     public ModifyAnswerOutputDTO modifyAnswer(ModifyAnswerInputDTO inputDTO){
-        return answerManagementClientImpl.modifyAnswer(inputDTO);
+        return answerManagementClient.modifyAnswer(inputDTO);
     }
 }

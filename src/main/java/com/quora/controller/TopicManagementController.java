@@ -6,7 +6,6 @@ import com.quora.mapper.TopicManagementMapper;
 import com.quora.service.business.TopicManagementService;
 import com.quora.service.models.request.TopicInputDTO;
 import com.quora.service.models.response.TopicOutputDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +16,7 @@ public class TopicManagementController {
     private final TopicManagementMapper topicManagementMapper = TopicManagementMapper.INSTANCE;
     private final TopicManagementService topicManagementService;
 
-    @Autowired
+
     private TopicManagementController (
             TopicManagementService topicManagementService
     ) {

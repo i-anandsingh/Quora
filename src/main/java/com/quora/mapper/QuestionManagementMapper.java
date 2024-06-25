@@ -13,10 +13,17 @@ import java.util.List;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.WARN, unmappedSourcePolicy = ReportingPolicy.WARN)
 public interface QuestionManagementMapper {
+
     QuestionManagementMapper INSTANCE = Mappers.getMapper(QuestionManagementMapper.class);
+
+    @Mapping(source = "topicTags", target = "topicTags.topics")
     QuestionEntity mapInputToEntity(QuestionInputDTO inputDTO);
+
     QuestionInputDTO mapRequestToInput(QuestionRequestDTO requestDTO);
+
     @Mapping(source = "entity.id", target = "questionId")
+    @Mapping(source = "topicTags.topics", target = "topicTags")
     QuestionOutputDTO mapEntityToOutput(QuestionEntity entity);
+
     List<QuestionOutputDTO> mapEntityToOutputList(List<QuestionEntity> entityList);
 }

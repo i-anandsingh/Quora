@@ -10,7 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public interface UserManagementRepository extends JpaRepository<UserEntity, String> {
     UserEntity findByUsername(String username);
+
     UserEntity findByEmailId(String email);
+
     @Modifying
     @Transactional
     @Query(value = "UPDATE USERS_TABLE U SET U.BIO = :bio WHERE U.USERNAME = :username", nativeQuery = true)

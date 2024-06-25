@@ -5,7 +5,6 @@ import com.quora.mapper.QuestionManagementMapper;
 import com.quora.service.business.QuestionManagementService;
 import com.quora.service.models.request.QuestionInputDTO;
 import com.quora.service.models.response.QuestionOutputDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +18,6 @@ public class QuestionsManagementController {
     private final QuestionManagementService questionManagementService;
     private final QuestionManagementMapper questionManagementMapper = QuestionManagementMapper.INSTANCE;
 
-    @Autowired
     public QuestionsManagementController(QuestionManagementService questionManagementService){
         this.questionManagementService = questionManagementService;
     }

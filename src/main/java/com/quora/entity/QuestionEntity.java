@@ -18,7 +18,8 @@ public class QuestionEntity extends BaseEntity{
     @Column(nullable = false, name = "body")
     private String body;
 
-    private String topicTags;
+    @OneToOne(cascade = CascadeType.REMOVE)
+    private TopicEntity topicTags;
 
     @ManyToOne
     @JoinColumn(name = "userId", nullable = false)

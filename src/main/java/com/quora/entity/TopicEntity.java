@@ -1,6 +1,8 @@
 package com.quora.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,7 +10,6 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "topics_table")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class TopicEntity extends BaseEntity{
 
     @Column(nullable = false)
