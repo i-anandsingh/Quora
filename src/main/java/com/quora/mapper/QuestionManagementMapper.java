@@ -9,6 +9,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 import static java.util.stream.Collectors.toList;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.WARN, unmappedSourcePolicy = ReportingPolicy.WARN)
@@ -36,5 +38,7 @@ public interface QuestionManagementMapper {
                         .collect(toList()))
                 .build();
     }
+
+    List<QuestionOutputDTO> mapEntityListToOutputList(List<QuestionEntity> entities);
 
 }
