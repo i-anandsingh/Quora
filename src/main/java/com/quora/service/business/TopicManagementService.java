@@ -7,6 +7,8 @@ import com.quora.service.models.request.TopicInputDTO;
 import com.quora.service.models.response.TopicOutputDTO;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TopicManagementService {
     private final TopicManagementMapper topicManagementMapper = TopicManagementMapper.INSTANCE;
@@ -19,7 +21,7 @@ public class TopicManagementService {
         this.topicManagementClient = topicManagementClient;
     }
 
-    public TopicOutputDTO saveTopics(TopicInputDTO inputDTO){
+    public List<TopicOutputDTO> saveTopics(TopicInputDTO inputDTO){
         return topicManagementClient.saveTopics(inputDTO);
     }
 

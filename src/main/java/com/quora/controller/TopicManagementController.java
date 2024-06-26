@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/v1")
 public class TopicManagementController {
@@ -24,11 +26,11 @@ public class TopicManagementController {
     }
 
     @PostMapping("/topics")
-    private ResponseEntity<TopicOutputDTO> topicManagement(
+    private ResponseEntity<List<TopicOutputDTO>> topicManagement(
             @RequestBody TopicRequestDTO requestDTO
     ) {
         TopicInputDTO inputDTO = topicManagementMapper.mapRequestToInput(requestDTO);
-        TopicOutputDTO outputDTO = topicManagementService.saveTopics(inputDTO);
+        List<TopicOutputDTO> outputDTO = topicManagementService.saveTopics(inputDTO);
         return new ResponseEntity<>(outputDTO, HttpStatus.ACCEPTED);
     }
 

@@ -2,28 +2,39 @@ package com.quora.mapper;
 
 import com.quora.apimodels.request.QuestionRequestDTO;
 import com.quora.entity.QuestionEntity;
+import com.quora.entity.TopicEntity;
 import com.quora.service.models.request.QuestionInputDTO;
 import com.quora.service.models.response.QuestionOutputDTO;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
-import java.util.List;
+import static java.util.stream.Collectors.toList;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.WARN, unmappedSourcePolicy = ReportingPolicy.WARN)
 public interface QuestionManagementMapper {
 
     QuestionManagementMapper INSTANCE = Mappers.getMapper(QuestionManagementMapper.class);
 
-    @Mapping(source = "topicTags", target = "topicTags.topics")
-    QuestionEntity mapInputToEntity(QuestionInputDTO inputDTO);
+    default QuestionEntity mapInputToEntity(QuestionInputDTO inputDTO) {
+        QuestionEntity entity = new QuestionEntity();
+        entity.setTitle(inputDTO.getTitle());
+        entity.setBody(inputDTO.getBody());
+        // Topic tags are set separately in the postQuestion method
+        return entity;
+    }
 
     QuestionInputDTO mapRequestToInput(QuestionRequestDTO requestDTO);
 
-    @Mapping(source = "entity.id", target = "questionId")
-    @Mapping(source = "topicTags.topics", target = "topicTags")
-    QuestionOutputDTO mapEntityToOutput(QuestionEntity entity);
+    default QuestionOutputDTO mapEntityToOutput(QuestionEntity entity) {
+        return QuestionOutputDTO.builder()
+                .questionId(entity.getId())
+                .title(entity.getTitle())
+                .body(entity.getBody())
+                .topicTags(entity.getTopicTags().stream()
+                        .map(TopicEntity::getTopics)
+                        .collect(toList()))
+                .build();
+    }
 
-    List<QuestionOutputDTO> mapEntityToOutputList(List<QuestionEntity> entityList);
 }

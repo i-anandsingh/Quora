@@ -17,6 +17,8 @@ public interface TopicManagementRepository extends JpaRepository<TopicEntity, UU
     @Query(value = "SELECT * FROM LIKES_TABLE",nativeQuery = true)
     List<TopicEntity> findALL();
 
-    @Query(value = "SELECT * FROM TOPICS_TABLE WHERE TOPICS = :topicTag", nativeQuery = true)
-    TopicEntity fetchIdByTopicTag(String topicTag);
+    @Query(value = "SELECT * FROM TOPICS_TABLE WHERE TOPICS in ", nativeQuery = true)
+    TopicEntity fetchIdByTopicTag(List<String> topicTag);
+
+    TopicEntity findByTopics(String topic);
 }

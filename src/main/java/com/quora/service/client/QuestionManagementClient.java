@@ -8,20 +8,18 @@ import com.quora.mapper.QuestionManagementMapper;
 import com.quora.repository.QuestionManagementRepository;
 import com.quora.repository.TopicManagementRepository;
 import com.quora.repository.UserManagementRepository;
-import com.quora.service.business.TopicManagementService;
 import com.quora.service.models.request.QuestionInputDTO;
-import com.quora.service.models.request.TopicInputDTO;
 import com.quora.service.models.response.QuestionOutputDTO;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Component
 public class QuestionManagementClient {
     private final QuestionManagementRepository questionManagementRepository;
     private final UserManagementRepository userManagementRepository;
-    private final TopicManagementService topicManagementService;
     private final TopicManagementRepository topicManagementRepository;
     private final QuestionManagementMapper questionManagementMapper = QuestionManagementMapper.INSTANCE;
 
@@ -29,11 +27,9 @@ public class QuestionManagementClient {
     public QuestionManagementClient(
             QuestionManagementRepository questionManagementRepository,
             UserManagementRepository userManagementRepository,
-            TopicManagementService topicManagementService,
             TopicManagementRepository topicManagementRepository
     ){
         this.userManagementRepository = userManagementRepository;
-        this.topicManagementService = topicManagementService;
         this.questionManagementRepository = questionManagementRepository;
         this.topicManagementRepository = topicManagementRepository;
     }
@@ -44,16 +40,24 @@ public class QuestionManagementClient {
         if (user == null) {
             throw new CustomException("Please create an account first.");
         }
-        TopicInputDTO topicInputDTO = new TopicInputDTO();
-        topicInputDTO.setTopics(inputDTO.getTopicTags());
-        topicManagementService.saveTopics(topicInputDTO);
+
+        List<TopicEntity> topicEntities = inputDTO.getTopicTags().stream()
+                .map(topic -> {
+                    TopicEntity existingTopic = topicManagementRepository.findByTopics(topic);
+                    if (existingTopic == null) {
+                        TopicEntity newTopic = new TopicEntity();
+                        newTopic.setTopics(topic);
+                        newTopic.setId(UUID.randomUUID());
+                        return topicManagementRepository.save(newTopic);
+                    }
+                    return existingTopic;
+                })
+                .collect(Collectors.toList());
 
         QuestionEntity entity = questionManagementMapper.mapInputToEntity(inputDTO);
         entity.setId(UUID.randomUUID());
         entity.setUser(user);
-
-        TopicEntity topicEntity = topicManagementRepository.fetchIdByTopicTag(inputDTO.getTopicTags());
-        entity.setTopicTags(topicEntity);
+        entity.setTopicTags(topicEntities);
         questionManagementRepository.save(entity);
         return questionManagementMapper.mapEntityToOutput(entity);
     }
@@ -64,7 +68,7 @@ public class QuestionManagementClient {
         entity.setTitle(inputDTO.getTitle());
 
         //TODO -> fix bug here
-        entity.getTopicTags().setTopics(inputDTO.getTopicTags());
+//        entity.getTopicTags().setTopics(inputDTO.getTopicTags());
         return questionManagementRepository.findAll();
     }
 

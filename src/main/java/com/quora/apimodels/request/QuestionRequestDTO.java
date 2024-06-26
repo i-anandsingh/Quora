@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -13,5 +15,5 @@ public class QuestionRequestDTO {
     private String username;
     private String title;
     private String body;
-    private String topicTags;
+    private List<String> topicTags;
 }

@@ -18,8 +18,13 @@ public class QuestionEntity extends BaseEntity{
     @Column(nullable = false, name = "body")
     private String body;
 
-    @OneToOne(cascade = CascadeType.REMOVE)
-    private TopicEntity topicTags;
+    @ManyToMany(cascade = CascadeType.PERSIST)  // question depends on topics to be saved first so PERSIST will save topicEntity first
+    @JoinTable(
+            name = "question_topic",
+            joinColumns = @JoinColumn(name = "question_id"),
+            inverseJoinColumns = @JoinColumn(name = "topic_id")
+    )
+    private List<TopicEntity> topicTags;
 
     @ManyToOne
     @JoinColumn(name = "userId", nullable = false)
