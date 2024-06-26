@@ -30,4 +30,7 @@ public class UserEntity extends BaseEntity{
 
     @OneToMany(mappedBy = "following", cascade = CascadeType.REMOVE)
     private List<FollowEntity> following;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<LikeEntity> likes;
 }

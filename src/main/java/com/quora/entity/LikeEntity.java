@@ -9,11 +9,12 @@ import lombok.Setter;
 @Entity
 @Table(name = "likes_table")
 public class LikeEntity extends BaseEntity {
-//    @Id
+
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
     private Like type;
 
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "userId", nullable = false)
     private UserEntity user;
 }

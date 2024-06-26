@@ -3,6 +3,7 @@ package com.quora.service.client;
 import com.quora.entity.Like;
 import com.quora.entity.LikeEntity;
 import com.quora.entity.UserEntity;
+import com.quora.exceptionHandler.CustomException;
 import com.quora.repository.LikeManagementRepository;
 import com.quora.repository.UserManagementRepository;
 import com.quora.service.models.request.LikeInputDTO;
@@ -29,14 +30,17 @@ public class LikeManagementClient {
         String type = inputDTO.getType();
         UUID id = inputDTO.getId();
         if(type == null || id == null){
-            throw new IllegalArgumentException("Invalid like type or item ID provided.");
+            throw new CustomException("Invalid like type or item ID provided.");
         }
-        UserEntity user = userManagementRepository.findByUsername(inputDTO.getUsername());
-
+        UserEntity entity = userManagementRepository.findByUsername(inputDTO.getUsername());
+        if(entity == null){
+            throw new CustomException("No User Exists.");
+        }
         Like likeType = Like.valueOf(type.toUpperCase());
         LikeEntity likeEntity = new LikeEntity();
+        likeEntity.setId(UUID.randomUUID());
         likeEntity.setType(likeType);
-        likeEntity.setUser(user);
+        likeEntity.setUser(entity);
 
         likeManagementRepository.save(likeEntity);
 

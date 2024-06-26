@@ -17,8 +17,8 @@ import java.util.UUID;
 @RequestMapping("/v1")
 public class LikeManagementController {
 
-    private LikeManagementService likeManagementService;
-    private LikeManagementMapper likeManagementMapper = LikeManagementMapper.INSTANCE;
+    private final LikeManagementService likeManagementService;
+    private final LikeManagementMapper likeManagementMapper = LikeManagementMapper.INSTANCE;
 
     @Autowired
     private LikeManagementController(
