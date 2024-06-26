@@ -1,7 +1,5 @@
 package com.quora.controller;
 
-import com.quora.apimodels.response.FollowResponseDTO;
-import com.quora.mapper.FollowManagementMapper;
 import com.quora.service.business.FollowManagementService;
 import com.quora.service.models.request.FollowInputDTO;
 import com.quora.service.models.response.FollowOutputDTO;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/v1")
 public class FollowManagementController {
     private final FollowManagementService followManagementService;
-    private final FollowManagementMapper followManagementMapper = FollowManagementMapper.INSTANCE;
 
     @Autowired
     private FollowManagementController(
@@ -26,16 +23,15 @@ public class FollowManagementController {
         this.followManagementService = followManagementService;
     }
 
-    @PostMapping("/users/{userId}/follow/{targetId}")
-    private ResponseEntity<FollowResponseDTO> followUsers(
-            @PathVariable String userId,
-            @PathVariable String targetId
+    @PostMapping("/users/{userName}/follow/{targetUserName}")
+    private ResponseEntity<FollowOutputDTO> followUsers(
+            @PathVariable String userName,
+            @PathVariable String targetUserName
     ) {
         FollowInputDTO inputDTO = new FollowInputDTO();
-        inputDTO.setFollower(userId);
-        inputDTO.setFollowing(targetId);
+        inputDTO.setFollower(userName);
+        inputDTO.setFollowing(targetUserName);
         FollowOutputDTO outputDTO = followManagementService.doFollow(inputDTO);
-        FollowResponseDTO responseDTO = followManagementMapper.mapOutputToResponse(outputDTO);
-        return new ResponseEntity(responseDTO, HttpStatus.OK);
+        return new ResponseEntity<>(outputDTO, HttpStatus.OK);
     }
 }

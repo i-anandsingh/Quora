@@ -2,7 +2,6 @@ package com.quora.service.client;
 
 import com.quora.entity.FollowEntity;
 import com.quora.entity.UserEntity;
-import com.quora.mapper.FollowManagementMapper;
 import com.quora.repository.FollowManagementRepository;
 import com.quora.repository.UserManagementRepository;
 import com.quora.service.models.request.FollowInputDTO;
@@ -15,8 +14,6 @@ import java.util.UUID;
 public class FollowManagementClient {
     private final UserManagementRepository userManagementRepository;
     private final FollowManagementRepository followManagementRepository;
-    private final FollowManagementMapper followManagementMapper = FollowManagementMapper.INSTANCE;
-
 
     private FollowManagementClient(
             UserManagementRepository userManagementRepository,
@@ -37,8 +34,6 @@ public class FollowManagementClient {
         followManagementRepository.save(entity);
 
         FollowOutputDTO outputDTO = new FollowOutputDTO();
-        outputDTO.setFollower(follower.getId());
-        outputDTO.setFollowing(following.getId());
         outputDTO.setResponse("User Followed!!");
         return outputDTO;
     }
