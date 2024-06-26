@@ -1,5 +1,9 @@
 package com.quora.service.client;
 
+import com.quora.entity.AnswerEntity;
+import com.quora.entity.CommentEntity;
+import com.quora.entity.UserEntity;
+import com.quora.exceptionHandler.CustomException;
 import com.quora.mapper.CommentManagementMapper;
 import com.quora.mapper.CommentOnCommentMapper;
 import com.quora.repository.AnswerManagementRepository;
@@ -10,6 +14,8 @@ import com.quora.service.models.request.CommentOnCommentInputDTO;
 import com.quora.service.models.response.CommentOnCommentOutputDTO;
 import com.quora.service.models.response.CommentOutputDTO;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 @Component
 public class CommentManagementClient {
@@ -31,18 +37,19 @@ public class CommentManagementClient {
     }
 
     public CommentOutputDTO commentOnAnswer(CommentInputDTO inputDTO) {
-//        UserEntity user = userManagementRepository.findByUsername(inputDTO.getUsername());
-//        AnswerEntity answer = answerManagementRepository.findByAnswerId(inputDTO.getAnswerId());
-//        if(user == null || answer == null){
-//            throw new CustomException("UserId or AnswerId Not Found");
-//        }
-//        CommentEntity commentEntity = commentManagementMapper.mapInputToEntity(inputDTO);
-//        commentEntity.setId(UUID.randomUUID());
-//        commentEntity.setUser(user);
-//        commentEntity.setAnswer(answer);
-//        commentManagementRepository.save(commentEntity);
-//        return commentManagementMapper.mapEntityToOutput(commentEntity);
-        return null;
+        UserEntity user = userManagementRepository.findByUsername(inputDTO.getUsername());
+        AnswerEntity answer = answerManagementRepository.findAnswerEntitiesById(inputDTO.getAnswerId());
+        if(user == null || answer == null){
+            throw new CustomException("UserId or AnswerId Not Found");
+        }
+        CommentEntity commentEntity = commentManagementMapper.mapInputToEntity(inputDTO);
+        commentEntity.setId(UUID.randomUUID());
+        commentEntity.setUser(user);
+        commentEntity.setAnswer(answer);
+        commentManagementRepository.save(commentEntity);
+        CommentOutputDTO outputDTO = commentManagementMapper.mapEntityToOutput(commentEntity);
+        outputDTO.setRemarks("Comment Successful.");
+        return outputDTO;
     }
 
 

@@ -3,7 +3,6 @@ package com.quora.controller;
 import com.quora.apimodels.request.CommentOnCommentRequestDTO;
 import com.quora.apimodels.request.CommentRequestDTO;
 import com.quora.apimodels.response.CommentOnCommentResponseDTO;
-import com.quora.apimodels.response.CommentResponseDTO;
 import com.quora.mapper.CommentManagementMapper;
 import com.quora.mapper.CommentOnCommentMapper;
 import com.quora.service.business.CommentManagementService;
@@ -30,15 +29,14 @@ public class CommentManagementController {
     }
 
     @PostMapping("/answer/{answerId}/comments")
-    public ResponseEntity<CommentResponseDTO> commentMethod(
+    public ResponseEntity<CommentOutputDTO> commentMethod(
             @PathVariable UUID answerId,
             @RequestBody CommentRequestDTO requestDTO
     ) {
         CommentInputDTO inputDTO = commentManagementMapper.mapRequestToInput(requestDTO);
         inputDTO.setAnswerId(answerId);
         CommentOutputDTO outputDTO = commentManagementService.doComment(inputDTO);
-        CommentResponseDTO response = commentManagementMapper.mapOutputToResponse(outputDTO);
-        return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(outputDTO, HttpStatus.ACCEPTED);
     }
 
     @PostMapping("/comments/{commentId}/comments")
