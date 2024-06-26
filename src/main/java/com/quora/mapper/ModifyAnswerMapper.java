@@ -6,6 +6,7 @@ import com.quora.entity.AnswerEntity;
 import com.quora.service.models.request.ModifyAnswerInputDTO;
 import com.quora.service.models.response.ModifyAnswerOutputDTO;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
@@ -14,6 +15,8 @@ public interface ModifyAnswerMapper {
     ModifyAnswerMapper INSTANCE = Mappers.getMapper(ModifyAnswerMapper.class);
     ModifyAnswerInputDTO mapRequestToInput(ModifyAnswerRequestDTO requestDTO);
     AnswerEntity mapInputToEntity(ModifyAnswerInputDTO inputDTO);
+
+    @Mapping(source = "entity.id", target = "answerId")
     ModifyAnswerOutputDTO mapEntityToOutput(AnswerEntity entity);
     ModifyAnswerResponseDTO mapOutputToResponse(ModifyAnswerOutputDTO outputDTO);
 }

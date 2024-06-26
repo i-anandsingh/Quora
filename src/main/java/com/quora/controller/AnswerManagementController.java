@@ -21,9 +21,9 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/v1")
 public class AnswerManagementController {
-    private AnswerManagementService answerManagementService;
-    private AnswerManagementMapper answerManagementMapper = AnswerManagementMapper.INSTANCE;
-    private ModifyAnswerMapper modifyAnswerMapper = ModifyAnswerMapper.INSTANCE;
+    private final AnswerManagementService answerManagementService;
+    private final AnswerManagementMapper answerManagementMapper = AnswerManagementMapper.INSTANCE;
+    private final ModifyAnswerMapper modifyAnswerMapper = ModifyAnswerMapper.INSTANCE;
 
     @Autowired
     private AnswerManagementController (

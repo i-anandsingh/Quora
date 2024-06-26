@@ -1,5 +1,9 @@
 package com.quora.service.client;
 
+import com.quora.entity.AnswerEntity;
+import com.quora.entity.QuestionEntity;
+import com.quora.entity.UserEntity;
+import com.quora.exceptionHandler.CustomException;
 import com.quora.mapper.AnswerManagementMapper;
 import com.quora.mapper.ModifyAnswerMapper;
 import com.quora.repository.AnswerManagementRepository;
@@ -12,13 +16,15 @@ import com.quora.service.models.response.ModifyAnswerOutputDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 public class AnswerManagementClient {
-    private AnswerManagementRepository answerManagementRepository;
-    private UserManagementRepository userManagementRepository;
-    private QuestionManagementRepository questionManagementRepository;
-    private ModifyAnswerMapper modifyAnswerMapper = ModifyAnswerMapper.INSTANCE;
-    private AnswerManagementMapper answerManagementMapper = AnswerManagementMapper.INSTANCE;
+    private final AnswerManagementRepository answerManagementRepository;
+    private final UserManagementRepository userManagementRepository;
+    private final QuestionManagementRepository questionManagementRepository;
+    private final ModifyAnswerMapper modifyAnswerMapper = ModifyAnswerMapper.INSTANCE;
+    private final AnswerManagementMapper answerManagementMapper = AnswerManagementMapper.INSTANCE;
 
     @Autowired
     private AnswerManagementClient(
@@ -31,30 +37,30 @@ public class AnswerManagementClient {
         this.questionManagementRepository = questionManagementRepository;
     }
     public AnswerOutputDTO postAnswer(AnswerInputDTO inputDTO) {
-//        UserEntity user = userManagementRepository.findByUsername(inputDTO.getUsername());
-//        QuestionEntity question = questionManagementRepository.findByQuestionId(inputDTO.getQuestionId());
-//        if (user == null) {
-//            throw new CustomException("Register yourself first.");
-//        }
-//        AnswerEntity entity = answerManagementMapper.mapInputToEntity(inputDTO);
-//        entity.setId(UUID.randomUUID());
-//        entity.setUser(user);
-//        entity.setQuestion(question);
-//        answerManagementRepository.save(entity);
-//        return answerManagementMapper.mapEntityToOutput(entity);
-        return null;
+        UserEntity user = userManagementRepository.findByUsername(inputDTO.getUsername());
+        if (user == null) {
+            throw new CustomException("User not registered. Register to submit an answer.");
+        }
+        QuestionEntity question = questionManagementRepository.findQuestionEntityById(inputDTO.getQuestionId());
+        if(question == null) {
+            throw new CustomException("No question found. Please enter a valid questionId.");
+        }
+        AnswerEntity entity = answerManagementMapper.mapInputToEntity(inputDTO);
+        entity.setId(UUID.randomUUID());
+        entity.setUser(user);
+        entity.setQuestion(question);
+        answerManagementRepository.save(entity);
+        return answerManagementMapper.mapEntityToOutput(entity);
     }
 
     public ModifyAnswerOutputDTO modifyAnswer(ModifyAnswerInputDTO inputDTO){
-//        AnswerEntity entity = answerManagementRepository.findByAerId(inputDTO.getAnswerId());
-//        if(entity == null){
-//            // TODO -> return an exception
-//            return null;
-//        }
-//        entity.setAnswer(inputDTO.getAnswer());
-//        answerManagementRepository.save(entity);
-//        return modifyAnswerMapper.mapEntityToOutput(entity);
-        return null;
+        AnswerEntity entity = answerManagementRepository.findAnswerEntitiesById(inputDTO.getAnswerId());
+        if(entity == null){
+            throw new CustomException("No previous answer found.");
+        }
+        entity.setAnswer(inputDTO.getAnswer());
+        answerManagementRepository.save(entity);
+        return modifyAnswerMapper.mapEntityToOutput(entity);
     }
 
 }

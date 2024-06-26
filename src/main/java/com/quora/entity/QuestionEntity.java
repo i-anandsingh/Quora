@@ -31,7 +31,7 @@ public class QuestionEntity extends BaseEntity{
     private UserEntity user;
 
     // A question can have many answers
-    @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "question", cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     private List<AnswerEntity> answerList;
 
     @OneToOne

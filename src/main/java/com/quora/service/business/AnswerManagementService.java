@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AnswerManagementService {
-    private AnswerManagementClient answerManagementClient;
+    private final AnswerManagementClient answerManagementClient;
 
     private AnswerManagementService(AnswerManagementClient answerManagementClient){
         this.answerManagementClient = answerManagementClient;
