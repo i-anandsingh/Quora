@@ -5,7 +5,6 @@ import com.quora.entity.CommentEntity;
 import com.quora.entity.UserEntity;
 import com.quora.exceptionHandler.CustomException;
 import com.quora.mapper.CommentManagementMapper;
-import com.quora.mapper.CommentOnCommentMapper;
 import com.quora.repository.AnswerManagementRepository;
 import com.quora.repository.CommentManagementRepository;
 import com.quora.repository.UserManagementRepository;
@@ -19,8 +18,7 @@ import java.util.UUID;
 
 @Component
 public class CommentManagementClient {
-    private CommentManagementMapper commentManagementMapper = CommentManagementMapper.INSTANCE;
-    private CommentOnCommentMapper commentOnCommentMapper = CommentOnCommentMapper.INSTANCE;
+    private final CommentManagementMapper commentManagementMapper = CommentManagementMapper.INSTANCE;
     private final CommentManagementRepository commentManagementRepository;
     private final UserManagementRepository userManagementRepository;
     private final AnswerManagementRepository answerManagementRepository;
@@ -54,23 +52,34 @@ public class CommentManagementClient {
 
 
     public CommentOnCommentOutputDTO commentOnComment(CommentOnCommentInputDTO inputDTO) {
-        // TODO -> implement at last
-//        CommentEntity parentComment = commentManagementRepository.findByCommentId(inputDTO.getCommentId());
-//        if(parentComment == null){
-//            // TODO -> raise an exception
-//            return null;
-//        }
-//        UserEntity userEntity = userManagementRepository.findByUserId(inputDTO.getUserId());
-//        if(userEntity == null){
-//            // TODO -> raise an exception
-//            return null;
-//        }
-//        CommentEntity commentOnCommentEntity = new CommentEntity();
-//        commentOnCommentEntity.setCommentId(UUID.randomUUID());
-//        commentOnCommentEntity.setUser(userEntity);
-//        commentManagementRepository.save(commentOnCommentEntity);
-//        return commentOnCommentMapper.mapEntityToOutput(commentOnCommentEntity);
-        return null;
+        UserEntity user = userManagementRepository.findByUsername(inputDTO.getUsername());
+        if (user == null) {
+            throw new CustomException("User does not exist.");
+        }
+
+        CommentEntity parentComment = null;
+        if (inputDTO.getParentCommentId() != null) {
+            parentComment = commentManagementRepository.findCommentEntityById(inputDTO.getParentCommentId())
+                    .orElseThrow(() -> new CustomException("Parent comment does not exist."));
+        }
+
+        CommentEntity commentEntity = new CommentEntity();
+        commentEntity.setId(UUID.randomUUID());
+        commentEntity.setUser(user);
+        commentEntity.setComment(inputDTO.getComment());
+        commentEntity.setParentComment(parentComment);
+
+        commentManagementRepository.save(commentEntity);
+
+        CommentOnCommentOutputDTO outputDTO = new CommentOnCommentOutputDTO();
+        outputDTO.setCommentId(commentEntity.getId());
+        outputDTO.setComment(commentEntity.getComment());
+        if (parentComment != null) {
+            outputDTO.setParentCommentId(parentComment.getId());
+        }
+        outputDTO.setRemarks("Comment added successfully!");
+
+        return outputDTO;
     }
 
 }

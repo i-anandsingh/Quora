@@ -45,7 +45,7 @@ public class CommentManagementController {
             @RequestBody CommentOnCommentRequestDTO requestDTO
     ) {
         CommentOnCommentInputDTO inputDTO = commentOnCommentMapper.mapRequestToInput(requestDTO);
-        inputDTO.setCommentId(commentId);
+        inputDTO.setParentCommentId(commentId);
         CommentOnCommentOutputDTO outputDTO= commentManagementService.doCommOnComment(inputDTO);
         CommentOnCommentResponseDTO responseDTO = commentOnCommentMapper.mapOutputToResponse(outputDTO);
         return new ResponseEntity<>(responseDTO, HttpStatus.ACCEPTED);

@@ -12,7 +12,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CommentOnCommentInputDTO {
-    private UUID commentId;
-    private UUID userId;
+    private UUID parentCommentId;
+    private String username;
     private String comment;
 }
