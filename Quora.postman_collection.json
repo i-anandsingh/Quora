@@ -1,0 +1,303 @@
+{
+	"info": {
+		"_postman_id": "33f8e887-d10f-44f3-9de3-c7d782b22f0c",
+		"name": "Quora",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "19605439"
+	},
+	"item": [
+		{
+			"name": "UserManagement",
+			"item": [
+				{
+					"name": "ModifyUserById",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\" : \"Adam Steve\",\n    \"emailId\" : \"anandsingh@gmail.com\",\n    \"bio\" : \"This is first User.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:9094/Quora/v1/users/adamsteve"
+					},
+					"response": []
+				},
+				{
+					"name": "CreateUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\" : \"Anand..Singh\",\n    \"emailId\" : \"singh.anand974@gmail.com\",\n    \"bio\" : \"Anand Singh 2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:9094/Quora/v1/users"
+					},
+					"response": []
+				},
+				{
+					"name": "FetchUserById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:9094/Quora/v1/users/i.anandsingh"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "QuestionManagement",
+			"item": [
+				{
+					"name": "PostQuestion",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"i.anandsingh\",\n    \"title\" : \"First question\",\n    \"body\" : \"Posting First question\",\n    \"topicTags\" : [\n        \"SpringBoot\",\n        \"Java\"\n        ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9094/Quora/v1/questions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9094",
+							"path": [
+								"Quora",
+								"v1",
+								"questions"
+							],
+							"query": [
+								{
+									"key": "text",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "tag",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SearchQuestion",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9094/Quora/v1/questions/search?tag=Java",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9094",
+							"path": [
+								"Quora",
+								"v1",
+								"questions",
+								"search"
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "First question",
+									"disabled": true
+								},
+								{
+									"key": "tag",
+									"value": "Java"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "AnswerManagement",
+			"item": [
+				{
+					"name": "PostAnAnswer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\" : \"i.anandsingh\",\n    \"answer\" : \"Posting on Java question.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:9094/Quora/v1/questions/802f9dfa-3a9e-47b5-8e39-9c55fad5d088/answers"
+					},
+					"response": []
+				},
+				{
+					"name": "ModifyAnswer",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"answer\" : \"This is actually a SpringBoot answer.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:9094/Quora/v1/answers/0131dfe2-1ef9-4057-b79f-218d3d16bc6f"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "CommentManagement",
+			"item": [
+				{
+					"name": "CommentOnAnswer",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\" : \"i.anandsingh\",\n    \"comment\" : \"This is a comment on answer.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:9094/Quora/v1/answer/77698a2f-b528-44e4-88b3-06964e221ada/comments"
+					},
+					"response": []
+				},
+				{
+					"name": "CommentOnComment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\" : \"Anand..Singh\",\n    \"comment\" : \"Commenting on a comment.\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:9094/Quora/v1/comments/25ea6948-df60-4cd1-8626-32f012e3a7c1/comments"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "LikeManagement",
+			"item": [
+				{
+					"name": "Like",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\" : \"i.anandsingh\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:9094/Quora/v1/question/17754e7a-22f0-45fb-a843-e05837776732/like"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "TopicManagement",
+			"item": [
+				{
+					"name": "SaveTopics",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"topics\" : [\n        \"C++\",\n        \"DotNet\"\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:9094/Quora/v1/topics"
+					},
+					"response": []
+				},
+				{
+					"name": "FetchAllTopics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:9094/Quora/v1/topics"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "FollowManagement",
+			"item": [
+				{
+					"name": "Follow",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "http://localhost:9094/Quora/v1/users/Anand..Singh/follow/i.anandsingh"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
