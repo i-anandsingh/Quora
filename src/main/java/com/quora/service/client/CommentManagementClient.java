@@ -36,9 +36,12 @@ public class CommentManagementClient {
 
     public CommentOutputDTO commentOnAnswer(CommentInputDTO inputDTO) {
         UserEntity user = userManagementRepository.findByUsername(inputDTO.getUsername());
+        if(user == null) {
+            throw new CustomException("User not found");
+        }
         AnswerEntity answer = answerManagementRepository.findAnswerEntitiesById(inputDTO.getAnswerId());
-        if(user == null || answer == null){
-            throw new CustomException("UserId or AnswerId Not Found");
+        if(answer == null) {
+            throw new CustomException("Answer not found");
         }
         CommentEntity commentEntity = commentManagementMapper.mapInputToEntity(inputDTO);
         commentEntity.setId(UUID.randomUUID());

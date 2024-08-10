@@ -43,7 +43,7 @@ public class AnswerManagementClient {
         }
         QuestionEntity question = questionManagementRepository.findQuestionEntityById(inputDTO.getQuestionId());
         if(question == null) {
-            throw new CustomException("No question found. Please enter a valid questionId.");
+            throw new CustomException("No question found with this questionId. Please enter a valid questionId.");
         }
         AnswerEntity entity = answerManagementMapper.mapInputToEntity(inputDTO);
         entity.setId(UUID.randomUUID());

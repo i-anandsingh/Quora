@@ -2,7 +2,6 @@ package com.quora.service.client;
 
 import com.quora.apimodels.response.FetchAllTopicsResponseDTO;
 import com.quora.entity.TopicEntity;
-import com.quora.mapper.TopicManagementMapper;
 import com.quora.repository.TopicManagementRepository;
 import com.quora.service.models.request.TopicInputDTO;
 import com.quora.service.models.response.TopicOutputDTO;
@@ -17,8 +16,6 @@ import java.util.stream.Collectors;
 public class TopicManagementClient {
 
     private final TopicManagementRepository topicManagementRepository;
-    private final TopicManagementMapper topicManagementMapper = TopicManagementMapper.INSTANCE;
-
 
     private TopicManagementClient(
             TopicManagementRepository topicManagementRepository
@@ -33,9 +30,7 @@ public class TopicManagementClient {
         for(TopicEntity entity : topicEntityList){
             topics.add(entity.getTopics());
         }
-        FetchAllTopicsResponseDTO outputDTO = new FetchAllTopicsResponseDTO();
-        outputDTO.setTopics(topics);
-        return outputDTO;
+        return FetchAllTopicsResponseDTO.builder().topics(topics).build();
     }
 
 

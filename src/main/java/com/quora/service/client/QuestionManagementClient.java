@@ -68,7 +68,6 @@ public class QuestionManagementClient {
     }
 
     private List<QuestionOutputDTO> filterQuestions(List<QuestionEntity> entityList, QuestionInputDTO inputDTO) {
-        List<QuestionOutputDTO> outputDTOList = new ArrayList<>();
         if(inputDTO.getTitle() == null && inputDTO.getTopicTags() == null){
             return questionManagementMapper.mapEntityListToOutputList(entityList);
         }
