@@ -51,6 +51,9 @@ dependencies {
 	implementation 'javax.ws.rs:javax.ws.rs-api:2.0'
 	// https://mvnrepository.com/artifact/org.glassfish.jersey.core/jersey-common
 	implementation 'org.glassfish.jersey.core:jersey-common:2.0-m03'
+	// https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-starter-webmvc-ui
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
+
 
 }
 
